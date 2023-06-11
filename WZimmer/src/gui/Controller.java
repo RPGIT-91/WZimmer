@@ -1,4 +1,7 @@
-package main;
+//Hier werden die Funktionalitäten hinter den Knöpfen angelegt.
+
+
+package gui;
 import java.util.List;
 import java.util.ArrayList;
 import javax.swing.*;
@@ -6,11 +9,13 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import user.Patient;
 
 public class Controller {
 	private MyView view;
 	private List<Patient> patients;
 
+	//beispielhafte Daten. In einer richtigen Anwendung wäre hier eine DB Anbindung.
 	public Controller(MyView view) {
 		this.view = view;
 		this.patients = new ArrayList<>();

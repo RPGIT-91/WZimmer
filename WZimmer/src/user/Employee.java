@@ -1,5 +1,6 @@
-package main;
-class Employee extends Person {
+package user;
+
+public class Employee extends Person {
     private String jobTitle;
     private int employeeID;
 

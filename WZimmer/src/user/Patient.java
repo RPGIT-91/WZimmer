@@ -1,5 +1,5 @@
-package test;
-class Patient extends Person {
+package user;
+public class Patient extends Person {
 private String medicalHistory;
 private String appointmentTime;
 private int patientId;

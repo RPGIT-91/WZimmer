@@ -1,7 +1,10 @@
-package main;
+package gui;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import user.Employee;
+import user.Patient;
 
 class WaitingRoom {
     private List<Patient> patients;
