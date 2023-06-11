@@ -1,6 +1,5 @@
 //Hier werden die Funktionalitäten hinter den Knöpfen angelegt.
 
-
 package gui;
 import java.util.List;
 import java.util.ArrayList;
@@ -21,8 +20,8 @@ public class Controller {
 		this.patients = new ArrayList<>();
 
 		// Example patients for testing
-		Patient patient1 = new Patient("John Doe", 30, "john.doe@example.com", "Hemorrhoids", "10:00 AM");
-		Patient patient2 = new Patient("Jane Smith", 45, "jane.smith@example.com", "", "11:00 AM");
+		Patient patient1 = new Patient("John Doe", 30, "john.doe@example.com", "Musterstrasse 1", 12, "0152565581", "A000000001", "TK", "Hemorrhoids", "10:00 AM", patients.size());
+		Patient patient2 = new Patient("Jane Smith", 45, "jane.smith@example.com", "Musterstrasse 2", 12, "0152565582", "A000000002", "TK", "", "11:00 AM", patients.size());
 
 		patients.add(patient1);
 		patients.add(patient2);
@@ -39,6 +38,7 @@ public class Controller {
 	}
 
 
+// Button actions
 	// ActionListener for the "Add Patient" button    
 	private class AddPatientListener implements ActionListener {
 		@Override

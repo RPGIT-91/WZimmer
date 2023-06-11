@@ -1,41 +1,43 @@
+//noch nicht implementiert
+//Wartezimmer Klasse. Hier sollen Patienten und angestellte aus der DB zum Display im Wartezimmer hinzugefügt werden.
+//Linked List
 package gui;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import user.Employee;
 import user.Patient;
 
 class WaitingRoom {
-    private List<Patient> patients;
-    private List<Employee> employees;
+    private List<Patient> patientsWZ;
+    private List<Employee> employeesWZ;
 
     public WaitingRoom() {
-        patients = new ArrayList<>();
-        employees = new ArrayList<>();
+        patientsWZ = new ArrayList<>();
+        employeesWZ = new ArrayList<>();
     }
 
     public void addPatient(Patient patient) {
-        patients.add(patient);
+        patientsWZ.add(patient);
     }
 
     public void removePatient(Patient patient) {
-        patients.remove(patient);
+        patientsWZ.remove(patient);
     }
 
     public void addEmployee(Employee employee) {
-        employees.add(employee);
+        employeesWZ.add(employee);
     }
 
     public void removeEmployee(Employee employee) {
-        employees.remove(employee);
+        employeesWZ.remove(employee);
     }
 
     public List<Patient> getPatients() {
-        return patients;
+        return patientsWZ;
     }
 
     public List<Employee> getEmployees() {
-        return employees;
+        return employeesWZ;
     }
 }

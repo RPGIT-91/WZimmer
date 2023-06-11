@@ -1,3 +1,5 @@
+//hier wird 
+
 package gui;
 
 import javax.swing.*;
@@ -70,12 +72,18 @@ public class MyView extends JFrame {
         setLayout(new BorderLayout());
         add(scrollPane, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
+        
+        this.setVisible(true);
     }
 
+    
+    //Methode um Datenbank Einträge zum Display hinzuzufügen.
     public void addPatient(Patient patient) {
         tableModel.addRow(new Object[]{patient.getName(), patient.getAge(), patient.getAppointmentTime()});
     }
 
+    
+    //Button listener
     public void addAddPatientListener(ActionListener listener) {
         addButton.addActionListener(listener);
     }
@@ -93,16 +101,29 @@ public class MyView extends JFrame {
         return table.getSelectedRow();
     }
 
-    //Other Boxes
+    
+    
+    
+    
+    
+    
+//////////////////////////////////////////////////////////////////////////////////////////////////////////   
+    //Dialog mit detaillierteren Informationen zum Patienten
     public void showPatientInfo(Patient patient) {
         JFrame patientInfoFrame = new JFrame("Patient Information");
-        JPanel infoPanel = new JPanel(new GridLayout(5, 2));
+        JPanel infoPanel = new JPanel(new GridLayout(11, 2));
 
         JTextField patName = new JTextField(patient.getName());
         JTextField patAge = new JTextField(String.valueOf(patient.getAge()));
         JTextField patContDeta = new JTextField(patient.getContactDetails());
+        JTextField patAdress = new JTextField(patient.getAdress());
+        JTextField patPLZ = new JTextField(String.valueOf(patient.getPlz()));
+        JTextField patTelephone = new JTextField(String.valueOf(patient.getTelephone()));
         JTextField patMedical = new JTextField(patient.getMedicalHistory());
+        JTextField patInsuranceNo = new JTextField(patient.getInsuranceNo());
+        JTextField patInsuranceInstitute = new JTextField(patient.getInsuranceInstitute());
         JTextField patTime = new JTextField(patient.getAppointmentTime());
+        JTextField patPatientId = new JTextField(String.valueOf(patient.getPatientId()));
 
         infoPanel.add(new JLabel("Name: "));
         patName.setEditable(false);
@@ -116,21 +137,43 @@ public class MyView extends JFrame {
         patContDeta.setEditable(false);
         infoPanel.add(patContDeta);
 
+        infoPanel.add(new JLabel("Address: "));
+        patAdress.setEditable(false);
+        infoPanel.add(patAdress);
+
+        infoPanel.add(new JLabel("PLZ: "));
+        patPLZ.setEditable(false);
+        infoPanel.add(patPLZ);
+
+        infoPanel.add(new JLabel("Telephone: "));
+        patTelephone.setEditable(false);
+        infoPanel.add(patTelephone);
+
         infoPanel.add(new JLabel("Medical History: "));
         patMedical.setEditable(false);
         infoPanel.add(patMedical);
+
+        infoPanel.add(new JLabel("Insurance No: "));
+        patInsuranceNo.setEditable(false);
+        infoPanel.add(patInsuranceNo);
+
+        infoPanel.add(new JLabel("Insurance Institute: "));
+        patInsuranceInstitute.setEditable(false);
+        infoPanel.add(patInsuranceInstitute);
 
         infoPanel.add(new JLabel("Appointment Time: "));
         patTime.setEditable(false);
         infoPanel.add(patTime);
 
+        infoPanel.add(new JLabel("Patient ID: "));
+        patPatientId.setEditable(false);
+        infoPanel.add(patPatientId);
 
-        //set background colour to black
-        patientInfoFrame.setBackground(Color.black);
+        // set background color to black
         patientInfoFrame.add(infoPanel);
         patientInfoFrame.pack();
         patientInfoFrame.setLocationRelativeTo(null);
-        //patientInfoFrame.setSize(640, 480);
         patientInfoFrame.setVisible(true);
     }
+    
 }

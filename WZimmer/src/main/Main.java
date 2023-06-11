@@ -1,3 +1,5 @@
+//Main
+
 package main;
 import gui.*;
 
@@ -6,6 +8,5 @@ public class Main {
         MyView view = new MyView();
         Controller controller = new Controller(view);
 
-        view.setVisible(true);
     }
 }
