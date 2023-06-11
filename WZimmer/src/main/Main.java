@@ -12,6 +12,6 @@ public class Main {
         //Controller controllwz = new Controller(wz);
         //WaitingRoom();
         
-        //Test
+        System.out.println("Test");
     }
 }
