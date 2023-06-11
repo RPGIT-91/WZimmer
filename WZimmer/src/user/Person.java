@@ -19,6 +19,8 @@ class Person {
         this.telephone = telephone;
     }
 
+    
+    
     // Getters
     public String getName() {
         return name;
@@ -43,7 +45,6 @@ class Person {
     public String getTelephone() {
         return telephone;
     }
-
 
 
     // Setters

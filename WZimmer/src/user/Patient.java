@@ -31,9 +31,6 @@ public class Patient extends Person {
 		this.patientId = patientId;
 	}
 	
-	//constructor for employees
-	
-	
 	
 	
 	// Getters
@@ -57,6 +54,7 @@ public class Patient extends Person {
         return insuranceInstitute;
     }
 
+    
     // Setters
     public void setMedicalHistory(String medicalHistory) {
         this.medicalHistory = medicalHistory;

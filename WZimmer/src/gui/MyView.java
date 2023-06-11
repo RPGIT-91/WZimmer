@@ -22,7 +22,7 @@ public class MyView extends JFrame {
 
     public MyView() {
         // Set up the frame
-        setTitle("Waiting Room");
+        setTitle("Patients");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1280, 720);
 
@@ -101,7 +101,8 @@ public class MyView extends JFrame {
         return table.getSelectedRow();
     }
 
-    
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     
     
     

@@ -12,6 +12,7 @@ import user.Patient;
 
 public class Controller {
 	private MyView view;
+	private Anzeige wz;
 	private List<Patient> patients;
 
 	//beispielhafte Daten. In einer richtigen Anwendung wäre hier eine DB Anbindung.
@@ -36,7 +37,6 @@ public class Controller {
 		view.addViewDetailsListener(new ViewDetailsListener());
 
 	}
-
 
 // Button actions
 	// ActionListener for the "Add Patient" button    
@@ -68,4 +68,11 @@ public class Controller {
 			}
 		}
 	}
+	
+/////////////////////////////////////////////////////////////////////////////////
+	//
+	public Controller(Anzeige wz) {
+		this.wz = wz;
+	}
+	
 }
