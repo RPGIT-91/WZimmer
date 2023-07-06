@@ -35,7 +35,7 @@ public class Controller {
 		view.addAddPatientListener(new AddPatientListener());
 		view.addEditPatientListener(new EditPatientListener());
 		view.addViewDetailsListener(new ViewDetailsListener());
-
+		view.addBehandlungListener(new BehandlungListener());
 	}
 
 // Button actions
@@ -68,6 +68,23 @@ public class Controller {
 			}
 		}
 	}
+	private class BehandlungListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Patient patient = model.nextPatient(); //Methode um nächsten Patienten aus dem Wartezimmer zu holen.
+            if (patient != null) {
+                Random random = new Random();
+                if (random.nextInt(100) < 5) {
+                    System.out.println(patient.getName() + " ist verstorben. Beweismittel werden vernichtet.");
+                } else {
+                    System.out.println(patient.getName() + " wurde behandelt und verlässt das Wartezimmer.");
+                }
+                updatePatientList();
+            } else {
+                System.out.println("Keine Patienten im Wartezimmer.");
+            }
+        }
+    };
 	
 /////////////////////////////////////////////////////////////////////////////////
 	//
