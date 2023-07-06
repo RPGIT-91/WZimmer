@@ -1,6 +1,6 @@
-//Main 
+//Main  
 //testi niclas
-//Alex war da und Niclas ist doooofff
+//Alex war da und Niclas ist doooofff und Ryu ist Meister
 //ryu ist meister
 
 package main;
