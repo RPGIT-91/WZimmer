@@ -1,6 +1,8 @@
 //noch nicht implementiert
 //Wartezimmer Klasse. Hier sollen Patienten und angestellte aus der DB zum Display im Wartezimmer hinzugefügt werden.
 //Linked Lists benutzen
+
+//test Ryu
 package gui;
 
 import java.util.ArrayList;
