@@ -1,5 +1,5 @@
 //Main
-//test niclas
+//testi niclas
 
 package main;
 import gui.*;
