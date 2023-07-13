@@ -1,3 +1,5 @@
+//Anzeige Wartezimmer
+
 package gui;
 
 import javax.swing.*;
