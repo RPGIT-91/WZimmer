@@ -84,7 +84,10 @@ public class MyView extends JFrame {
     public void addPatient(Patient patient) {
         tableModel.addRow(new Object[]{patient.getName(), patient.getAge(), patient.getAppointmentTime()});
     }
-
+    
+    public void removePatient(int patientID) {
+    	tableModel.removeRow(patientID);
+    }
     
     //Button listener
     public void addAddPatientListener(ActionListener listener) {

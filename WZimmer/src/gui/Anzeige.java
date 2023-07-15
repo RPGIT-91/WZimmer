@@ -67,11 +67,13 @@ public class Anzeige extends JFrame{
         this.setVisible(true);
 		}
     
-    // Funktionen um Patienten zum Wartezimmer display hinzuzufügen
+    // Methode um Patienten zum Wartezimmer display hinzuzufügen
     public void addPatient(Patient patient) {
         tableModel.addRow(new Object[]{patient.getName(), patient.getAppointmentTime()});
-        //table.setModel(tableModel); // Update the table model
-        //scrollToBottom(); // Scroll to the bottom of the table
+    }
+    // Methode um Patienten zu löschen
+    public void removePatient(Patient patient) {
+    	tableModel.removeRow(0);
     }
     
     // Getter for the waitPanel
@@ -82,4 +84,5 @@ public class Anzeige extends JFrame{
     public int getRows() {
     	return table.getRowCount();
     }
+    
 }

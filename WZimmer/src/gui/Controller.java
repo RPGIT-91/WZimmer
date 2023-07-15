@@ -2,6 +2,7 @@
 
 package gui;
 import java.util.List;
+import java.util.Random;
 import java.util.ArrayList;
 import javax.swing.*;
 
@@ -29,7 +30,8 @@ public class Controller {
 		patients.add(patient1);
 		Patient patient2 = new Patient("Jane Smith", 45, "jane.smith@example.com", "Musterstrasse 2", 12, "0152565582", "A000000002", "TK", "", "11:00 AM", patients.size()+1);
 		patients.add(patient2);
-
+		
+		
 		// Add patients to the view
 		for (Patient patient : patients) {
 			view.addPatient(patient);
@@ -72,15 +74,42 @@ public class Controller {
 				Patient selectedPatient = patients.get(selectedRow);
 				view.showPatientInfo(selectedPatient);
 			} else {
-				JOptionPane.showMessageDialog(view, "Please select a patient.", "warning", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(view, "Please select a patient.", "Warning", JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
 	}
 	private class BehandlungListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-        	
-           
+        	//removes entry from Anzeige as well as waitingRoom.
+        	Patient behandelt = waitingRoom.doTreatment();
+        	if (behandelt != null) {
+        		waitingAnzeige.removePatient(behandelt);
+        		
+        		// check if treatment is successful
+                // Generate a random number between 0 and 99
+                Random random = new Random();
+                int chance = random.nextInt(100);
+                
+                if (chance < 90) {
+                    // Handle the treatment going wrong
+                	JOptionPane.showMessageDialog(null, "Patient ist Tot.\nBeweise werden vernichtet.", "Warning", JOptionPane.INFORMATION_MESSAGE);
+                	
+                	//Delete patient info from view and from programn.
+                	view.removePatient(behandelt.getPatientId()-1);                               
+                	patients.remove(behandelt.getPatientId()-1);
+                	//add deletion from txt.                	
+                	
+                	
+                } else {
+                    // Handle the successful treatment
+                	JOptionPane.showMessageDialog(null, "Patient ist am leben.\nwir haben garantiert nichts mit dem Organhandel zu tun.", "Warning", JOptionPane.INFORMATION_MESSAGE);
+                }
+        	}
+        	else {
+        		JOptionPane.showMessageDialog(null, "No patients in the waitingroom.", "Warning", JOptionPane.INFORMATION_MESSAGE);
+        	}
+         
         }
     };
 	

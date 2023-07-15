@@ -15,6 +15,7 @@ import user.Patient;
 
 public class WaitingRoom {
     private Queue<Patient> patientsWaitroom;
+    private Patient behandelt;
 
     public WaitingRoom() {
     	// LinkedList implementation of Queue
@@ -42,25 +43,14 @@ public class WaitingRoom {
     }
 
     
-    public void doTreatment(String treatment) {
+    public Patient doTreatment() {
         if (!patientsWaitroom.isEmpty()) {
-            Patient patient = patientsWaitroom.poll(); // Remove and retrieve the first patient from the waitroom
-            System.out.print("Treating patient: " + patient.getName() + ", Treatment: " + treatment);
+            behandelt = patientsWaitroom.poll(); // Remove and retrieve the first patient from the waitroom
             
-            // Generate a random number between 0 and 99
-            Random random = new Random();
-            int chance = random.nextInt(100);
-            
-            if (chance < 5) {
-                System.out.println(" [Treatment went wrong]");
-                
-                // Handle the treatment going wrong
-            } else {
-                System.out.println(" [Treatment successful]");
-                // Handle the successful treatment
-            }
+            return behandelt;
         } else {
-            System.out.println("No patients in the waitroom.");
+        	return null;
         }
+
     }
 }
