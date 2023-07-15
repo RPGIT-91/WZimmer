@@ -5,50 +5,42 @@
 //test Ryu
 package gui;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 import java.util.Random;
 
-import user.Employee;
+import javax.swing.JOptionPane;
+
 import user.Patient;
 
 public class WaitingRoom {
-    //private Queue<Patient> patientsWZ
-    private List<Employee> doctorsAvailable;
     private Queue<Patient> patientsWaitroom;
 
     public WaitingRoom() {
     	// LinkedList implementation of Queue
     	patientsWaitroom = new LinkedList<>();
-        doctorsAvailable = new LinkedList<>();
-        
     }
 
     public void addPatient(Patient patient) {
-    	patientsWaitroom.add(patient);
+    	if (!patientsWaitroom.contains(patient)) {
+            patientsWaitroom.add(patient);
+        } else {
+            int option = JOptionPane.showOptionDialog(null, "Patient already in the waitroom. Add anyway?", "Duplicate Entry", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            if (option == JOptionPane.YES_OPTION) {
+                patientsWaitroom.add(patient);
+                // You can display an error message or handle it as per your application's requirements
+                }
+        }
     }
 
     public void removePatient(Patient patient) {
     	patientsWaitroom.remove(patient);
     }
 
-    public void addEmployee(Employee employee) {
-        doctorsAvailable.add(employee);
-    }
-
-    public void removeEmployee(Employee employee) {
-    	doctorsAvailable.remove(employee);
-    }
-
     public Queue<Patient> getPatients() {
         return patientsWaitroom;
     }
 
-    public List<Employee> getEmployees() {
-        return doctorsAvailable;
-    }
     
     public void doTreatment(String treatment) {
         if (!patientsWaitroom.isEmpty()) {

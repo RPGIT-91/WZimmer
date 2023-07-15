@@ -20,7 +20,6 @@ public class MyView extends JFrame {
     private JButton viewButton;
     private JButton actionButton;
     private JButton addToWaitListButton;
-    private JButton addLaunchWZButton;
 
     public MyView() {
         // Set up the frame
@@ -63,7 +62,6 @@ public class MyView extends JFrame {
         viewButton = new JButton("View Details");
         actionButton = new JButton("Behandlung Abschliessen");
         addToWaitListButton = new JButton("Add to Waitlist");
-        addLaunchWZButton = new JButton("Launch WZ Display");
 
         // Create a panel for the buttons and set its layout to FlowLayout
         JPanel buttonPanel = new JPanel(new FlowLayout());
@@ -72,7 +70,6 @@ public class MyView extends JFrame {
         buttonPanel.add(viewButton);
         buttonPanel.add(actionButton);
         buttonPanel.add(addToWaitListButton);
-        buttonPanel.add(addLaunchWZButton);
 
         // Set the layout to BorderLayout
         setLayout(new BorderLayout());
@@ -107,10 +104,6 @@ public class MyView extends JFrame {
     }
     public void addToWaitListListener(ActionListener listener) {
     	addToWaitListButton.addActionListener(listener);
-    }
-    
-    public void addLaunchWaitingRoomDisplayListener(ActionListener listener) {
-    	addLaunchWZButton.addActionListener(listener);
     }
     
     //method to determine whether an entry has been selected
