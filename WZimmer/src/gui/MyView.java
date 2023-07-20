@@ -18,6 +18,7 @@ public class MyView extends JFrame {
     private JButton addButton;
     private JButton editButton;
     private JButton viewButton;
+    private JButton actionButton;
     private JButton addToWaitListButton;
 
     public MyView() {
@@ -59,6 +60,7 @@ public class MyView extends JFrame {
         addButton = new JButton("Add Patient");
         editButton = new JButton("Edit Patient");
         viewButton = new JButton("View Details");
+        actionButton = new JButton("Behandlung Abschliessen");
         addToWaitListButton = new JButton("Add to Waitlist");
 
         // Create a panel for the buttons and set its layout to FlowLayout
@@ -66,6 +68,7 @@ public class MyView extends JFrame {
         buttonPanel.add(addButton);
         buttonPanel.add(editButton);
         buttonPanel.add(viewButton);
+        buttonPanel.add(actionButton);
         buttonPanel.add(addToWaitListButton);
 
         // Set the layout to BorderLayout
@@ -81,7 +84,10 @@ public class MyView extends JFrame {
     public void addPatient(Patient patient) {
         tableModel.addRow(new Object[]{patient.getName(), patient.getAge(), patient.getAppointmentTime()});
     }
-
+    
+    public void removePatient(int patientID) {
+    	tableModel.removeRow(patientID);
+    }
     
     //Button listener
     public void addAddPatientListener(ActionListener listener) {
@@ -95,7 +101,14 @@ public class MyView extends JFrame {
     public void addViewDetailsListener(ActionListener listener) {
         viewButton.addActionListener(listener);
     }
-
+    
+    public void addBehandlungListener(ActionListener listener) {
+    	actionButton.addActionListener(listener);
+    }
+    public void addToWaitListListener(ActionListener listener) {
+    	addToWaitListButton.addActionListener(listener);
+    }
+    
     //method to determine whether an entry has been selected
     public int getSelectedRowIndex() {
         return table.getSelectedRow();

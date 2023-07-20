@@ -1,13 +1,15 @@
+//Anzeige Wartezimmer
+
 package gui;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
-import user.*;
+import user.Patient;
 
 import java.awt.*;
-import java.awt.event.ActionListener;
+
 
 public class Anzeige extends JFrame{
 	//Wartezimmer Anzeige
@@ -17,9 +19,10 @@ public class Anzeige extends JFrame{
     private static final long serialVersionUID = 1L;
 	private DefaultTableModel tableModel;
 	private JTable table;
+	private JPanel waitPanel;
     
     public Anzeige() {
-	setTitle("Waiting Room");
+    	setTitle("Waiting Room");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1280, 720);
 
@@ -50,10 +53,10 @@ public class Anzeige extends JFrame{
         // Add the table to a scroll pane
         JScrollPane scrollPane2 = new JScrollPane(table);
         
-        JPanel waitPanel = new JPanel(new GridLayout(1,2));
+        waitPanel = new JPanel(new GridLayout(1,2));
         
-        waitPanel.add(new JLabel("Currently Waiting: "));
-        waitPanel.add(table);
+        waitPanel.add(new JLabel("Currently Waiting: " + table.getRowCount()));
+        //waitPanel.add(table);
         // Create a panel for the buttons and set its layout to FlowLayout
 
         // Set the layout to BorderLayout
@@ -62,5 +65,24 @@ public class Anzeige extends JFrame{
         add(waitPanel, BorderLayout.SOUTH);
         
         this.setVisible(true);
+		}
+    
+    // Methode um Patienten zum Wartezimmer display hinzuzufügen
+    public void addPatient(Patient patient) {
+        tableModel.addRow(new Object[]{patient.getName(), patient.getAppointmentTime()});
     }
+    // Methode um Patienten zu löschen
+    public void removePatient(Patient patient) {
+    	tableModel.removeRow(0);
+    }
+    
+    // Getter for the waitPanel
+    public JPanel getWaitPanel() {
+        return waitPanel;
+    }
+    
+    public int getRows() {
+    	return table.getRowCount();
+    }
+    
 }
