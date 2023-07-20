@@ -17,8 +17,7 @@ public class Main {
 
         
         
-        //Testen für Alex
-       // PatientAdden patientadden = new PatientAdden();
+        
         
         
     }

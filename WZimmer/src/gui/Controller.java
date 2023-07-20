@@ -73,7 +73,8 @@ public class Controller {
 		public void actionPerformed(ActionEvent e) {
 			
 			PatientAdden patientadden = new PatientAdden();
-			//Jeder Variable von der anderen Klasse rüber ziehen. Und eine Globale geben um sie oben zu verwenden. 
+			
+			//Daten aus Patient werden in diese Klasse gezogen und kann genutzt werden. 
 			vornameGlobal = patientadden.vornameGlobal;
 			nachnameGlobal = patientadden.nachnameGlobal;
 			alterGlobal = patientadden.alterGlobal;

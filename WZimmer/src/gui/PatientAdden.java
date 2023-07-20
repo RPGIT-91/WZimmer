@@ -95,7 +95,7 @@ public class PatientAdden extends JFrame {
         mainPanel.add(kontaktinformation);
         mainPanel.add(kontakttext);
 
-        // Uhrzeit eingabe
+        // Uhrzeit wird automatisch vom Computer gezogen werden. 
         JLabel uhrzeit = new JLabel("Uhrzeit");
         
         //Aktuelle Uhrzeit
@@ -104,14 +104,13 @@ public class PatientAdden extends JFrame {
         String currentMinute = String.format("%02d", currentTime.getMinute());
         String currentTimeText = currentHour + ":" + currentMinute;
         
-        
         JTextField uhrzeittext = new JTextField(currentTimeText);
         mainPanel.add(uhrzeit);
         mainPanel.add(uhrzeittext);
         
         
+      //ActionListener zum Speichern der Daten
         JButton speichern = new JButton("Speichern");
-        //ActionListener zum Speichern der Daten
         speichern.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent ae) {
         		
@@ -147,10 +146,7 @@ public class PatientAdden extends JFrame {
         		 
         		 String uhrzeitString = uhrzeittext.getText();
         		 zeitGlobal = uhrzeitString;
-        		 System.out.println(uhrzeitString);
-        		 
-        		 
-        		
+        		 System.out.println(uhrzeitString);		
         	}
         });
         
@@ -172,6 +168,7 @@ public class PatientAdden extends JFrame {
         });
         
         
+        //Speichern und Löschen werden auf das Panel eingefügt. 
         mainPanel.add(speichern);
         mainPanel.add(löschen);
 
