@@ -15,5 +15,11 @@ public class Main {
         MyView view = new MyView();
         Controller controller = new Controller(view);
 
+        
+        
+        //Testen für Alex
+        PatientAdden patientadden = new PatientAdden();
+        
+        
     }
 }
