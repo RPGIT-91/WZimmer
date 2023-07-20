@@ -64,6 +64,10 @@ public class Anzeige extends JFrame{
         add(scrollPane2, BorderLayout.CENTER);
         add(waitPanel, BorderLayout.SOUTH);
         
+        
+        
+      //Setzt das Fenster in die Mitte
+        setLocationRelativeTo(null);
         this.setVisible(true);
 		}
     

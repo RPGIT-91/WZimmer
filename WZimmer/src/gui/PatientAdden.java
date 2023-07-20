@@ -29,10 +29,9 @@ public class PatientAdden extends JFrame {
 	String nachnameGlobal;
 	String adresseGlobal;
 	int alterGlobal;
-	String telefonGlobal;
+	int telefonGlobal;
 	String versicherungGlobal;
 	String kontaktGlobal;
-	String telefonnummerGlobal;
 	String zeitGlobal;
 	
 	//ActionListener speichernAction;
@@ -137,8 +136,9 @@ public class PatientAdden extends JFrame {
         		 System.out.println(versicherungString);
         		 
         		 String telefonString = telefontext.getText();
-        		 telefonGlobal = telefonString;
-        		 System.out.println(telefonString);
+        		 int telefonInt = Integer.parseInt(telefonString);
+        		 telefonGlobal = telefonInt;
+        		 System.out.println(telefonInt);
         		 
         		 String kontaktString = kontakttext.getText();
         		 kontaktGlobal = kontaktString;
