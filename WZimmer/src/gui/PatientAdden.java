@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalTime;
 
 import javax.swing.BoxLayout;
@@ -23,15 +25,20 @@ import javax.swing.table.JTableHeader;
 //Adden von Patienten 
 public class PatientAdden extends JFrame {
 
+	String vornameGlobal;
+	String nachnameGlobal;
+	String adresseGlobal;
+	String alterGlobal;
+	String versicherungGlobal;
+	String telefonnummerGlobal;
 	
-
-	JButton button;
-	JTextField textfield;
-	JLabel label;
+	ActionListener speichernAction;
+	
+	
 	
 	
 	public PatientAdden() {
-        setTitle("Add Patient");
+        setTitle("Hinzufügen von Patient");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 400);
 
@@ -42,14 +49,20 @@ public class PatientAdden extends JFrame {
         // Vorname eingabe
         JLabel vorname = new JLabel("Vorname:");
         JTextField vornametext = new JTextField();
+        vornameGlobal = vornametext.getText();
         mainPanel.add(vorname);
         mainPanel.add(vornametext);
+      
+        
+        
 
         // Nachname eingabe
         JLabel nachname = new JLabel("Nachname:");
         JTextField nachnametext = new JTextField();
         mainPanel.add(nachname);
         mainPanel.add(nachnametext);
+       // this.nachnameGlobal = nachnametext;
+        
 
         // Adresse eingabe
         JLabel adresse = new JLabel("Adresse:");
@@ -92,10 +105,41 @@ public class PatientAdden extends JFrame {
         
         
         JTextField uhrzeittext = new JTextField(currentTimeText);
-        
-        
         mainPanel.add(uhrzeit);
-        add(uhrzeittext);
+        mainPanel.add(uhrzeittext);
+        
+        
+        JButton speichern = new JButton("Speichern");
+        //ActionListener zum Speichern der Daten
+        speichern.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent ae) {
+        		
+        		System.out.println(vornameGlobal);
+        		
+        		
+        	}
+        });
+        
+        	
+        //Löschknopf mit seiner Funktion
+        JButton löschen = new JButton("Löschen");
+        
+        löschen.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent ae) {
+        		
+        		vornametext.setText("");
+        		nachnametext.setText("");
+        		adressetext.setText("");
+        		altertext.setText("");
+        		versicherungtext.setText("");
+        		telefontext.setText("");
+        		kontakttext.setText("");
+        	}
+        });
+        
+        
+        mainPanel.add(speichern);
+        mainPanel.add(löschen);
 
         //Setzt das Fenster in die Mitte
         setLocationRelativeTo(null);
@@ -106,11 +150,13 @@ public class PatientAdden extends JFrame {
     }
 	        
 	        
-	        
-	        
-	        
-	        
-			}
+	
+	
+	
+	
+			
+
+}
 	
 	
 	

@@ -17,6 +17,11 @@ public class Controller {
 	private WaitingRoom waitingRoom;
 	private Anzeige waitingAnzeige;
 	private boolean isWaitingRoomRunning = false;
+	
+	
+	//Test für Alex!! Einbinden von PatientAdden
+	PatientAdden patientadden = new PatientAdden();
+	
 
 	//beispielhafte Daten. In einer richtigen Anwendung wäre hier eine DB Anbindung.
 	public Controller(MyView view) {
@@ -30,6 +35,12 @@ public class Controller {
 		patients.add(patient1);
 		Patient patient2 = new Patient("Jane Smith", 45, "jane.smith@example.com", "Musterstrasse 2", 12, "0152565582", "A000000002", "TK", "", "11:00 AM", patients.size()+1);
 		patients.add(patient2);
+		
+		//Test für Alex!!
+		Patient patient3 = new Patient("Jane Smith", 45, "jane.smith@example.com", "Musterstrasse 2", 12, "0152565582", "A000000002", "TK", "", "11:00 AM", patients.size()+1);
+		patients.add(patient3);
+		
+		
 		
 		
 		// Add patients to the view
