@@ -15,6 +15,9 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
+
+
+//Adden von Patienten 
 public class PatientAdden extends JFrame {
 
 	
@@ -25,7 +28,7 @@ public class PatientAdden extends JFrame {
 	
 	
 	 public PatientAdden() {
-	    	setTitle("Waiting Room");
+	    	setTitle("Add Patient");
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        setSize(1280, 720);
 	        this.setVisible(true);
