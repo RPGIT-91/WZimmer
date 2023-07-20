@@ -18,9 +18,17 @@ public class Controller {
 	private Anzeige waitingAnzeige;
 	private boolean isWaitingRoomRunning = false;
 	
+	//Für Patientadden eine Globale um Sie wo anders benutzen zu können
+	String vornameGlobal;
+	String nachnameGlobal;
+	String adresseGlobal;
+	int alterGlobal;
+	String telefonGlobal;
+	String versicherungGlobal;
+	String kontaktGlobal;
+	String telefonnummerGlobal;
+	String zeitGlobal;
 	
-	//Test für Alex!! Einbinden von PatientAdden
-	PatientAdden patientadden = new PatientAdden();
 	
 
 	//beispielhafte Daten. In einer richtigen Anwendung wäre hier eine DB Anbindung.
@@ -37,7 +45,7 @@ public class Controller {
 		patients.add(patient2);
 		
 		//Test für Alex!!
-		Patient patient3 = new Patient("Jane Smith", 45, "jane.smith@example.com", "Musterstrasse 2", 12, "0152565582", "A000000002", "TK", "", "11:00 AM", patients.size()+1);
+		Patient patient3 = new Patient(vornameGlobal, alterGlobal, "jane.smith@example.com", adresseGlobal, 12, "0152565582", "A000000002", "TK", "", "11:00 AM", patients.size()+1);
 		patients.add(patient3);
 		
 		
@@ -63,7 +71,15 @@ public class Controller {
 	private class AddPatientListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// Implement the logic for adding a patient here
+			
+			PatientAdden patientadden = new PatientAdden();
+			//Jeder Variable von der anderen Klasse rüber ziehen. Und eine Globale geben um sie oben zu verwenden. 
+			vornameGlobal = patientadden.vornameGlobal;
+			nachnameGlobal = patientadden.nachnameGlobal;
+			alterGlobal = patientadden.alterGlobal;
+			adresseGlobal = patientadden.adresseGlobal;
+			
+			
 		}
 	}
 

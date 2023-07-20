@@ -25,12 +25,15 @@ import javax.swing.table.JTableHeader;
 //Adden von Patienten 
 public class PatientAdden extends JFrame {
 
-	//String vornameGlobal;
-	//String nachnameGlobal;
-	//String adresseGlobal;
-	//String alterGlobal;
-	//String versicherungGlobal;
-	//String telefonnummerGlobal;
+	String vornameGlobal;
+	String nachnameGlobal;
+	String adresseGlobal;
+	int alterGlobal;
+	String telefonGlobal;
+	String versicherungGlobal;
+	String kontaktGlobal;
+	String telefonnummerGlobal;
+	String zeitGlobal;
 	
 	//ActionListener speichernAction;
 	
@@ -113,28 +116,37 @@ public class PatientAdden extends JFrame {
         	public void actionPerformed(ActionEvent ae) {
         		
         		 String vornameString = vornametext.getText();
+        		 vornameGlobal = vornameString;
         		 System.out.println(vornameString);
         		
         		 
         		 String nachnameString = nachnametext.getText();
+        		 nachnameGlobal = nachnameString;
         		 System.out.println(nachnameString);
         		 
         		 String adresseString = adressetext.getText();
+        		 adresseGlobal = adresseString;
         		 System.out.println(adresseString);
         		 
         		 String alterInt = altertext.getText();
-        		 System.out.println(alterInt);
+        		 int alterInt1 = Integer.parseInt(alterInt);
+        		 alterGlobal = alterInt1;
+        		 System.out.println(alterInt1);
         		 
         		 String versicherungString = versicherungtext.getText();
+        		 versicherungGlobal = versicherungString;
         		 System.out.println(versicherungString);
         		 
         		 String telefonString = telefontext.getText();
+        		 telefonGlobal = telefonString;
         		 System.out.println(telefonString);
         		 
         		 String kontaktString = kontakttext.getText();
+        		 kontaktGlobal = kontaktString;
         		 System.out.println(kontaktString);
         		 
         		 String uhrzeitString = uhrzeittext.getText();
+        		 zeitGlobal = uhrzeitString;
         		 System.out.println(uhrzeitString);
         		 
         		 
@@ -173,10 +185,7 @@ public class PatientAdden extends JFrame {
 	        
 	        
 	
-	
-	
-	
-			
+		
 
 }
 	
