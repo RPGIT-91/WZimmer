@@ -25,14 +25,14 @@ import javax.swing.table.JTableHeader;
 //Adden von Patienten 
 public class PatientAdden extends JFrame {
 
-	String vornameGlobal;
-	String nachnameGlobal;
-	String adresseGlobal;
-	String alterGlobal;
-	String versicherungGlobal;
-	String telefonnummerGlobal;
+	//String vornameGlobal;
+	//String nachnameGlobal;
+	//String adresseGlobal;
+	//String alterGlobal;
+	//String versicherungGlobal;
+	//String telefonnummerGlobal;
 	
-	ActionListener speichernAction;
+	//ActionListener speichernAction;
 	
 	
 	
@@ -49,11 +49,9 @@ public class PatientAdden extends JFrame {
         // Vorname eingabe
         JLabel vorname = new JLabel("Vorname:");
         JTextField vornametext = new JTextField();
-        vornameGlobal = vornametext.getText();
         mainPanel.add(vorname);
         mainPanel.add(vornametext);
       
-        
         
 
         // Nachname eingabe
@@ -114,8 +112,32 @@ public class PatientAdden extends JFrame {
         speichern.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent ae) {
         		
-        		System.out.println(vornameGlobal);
+        		 String vornameString = vornametext.getText();
+        		 System.out.println(vornameString);
         		
+        		 
+        		 String nachnameString = nachnametext.getText();
+        		 System.out.println(nachnameString);
+        		 
+        		 String adresseString = adressetext.getText();
+        		 System.out.println(adresseString);
+        		 
+        		 String alterInt = altertext.getText();
+        		 System.out.println(alterInt);
+        		 
+        		 String versicherungString = versicherungtext.getText();
+        		 System.out.println(versicherungString);
+        		 
+        		 String telefonString = telefontext.getText();
+        		 System.out.println(telefonString);
+        		 
+        		 String kontaktString = kontakttext.getText();
+        		 System.out.println(kontaktString);
+        		 
+        		 String uhrzeitString = uhrzeittext.getText();
+        		 System.out.println(uhrzeitString);
+        		 
+        		 
         		
         	}
         });
