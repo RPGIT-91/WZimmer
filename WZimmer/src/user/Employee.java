@@ -6,7 +6,7 @@ public class Employee extends Person {
     private String jobTitle;
     private int employeeID;
 
-    public Employee(String name, int age, String contactDetails, String adress, int plz, String telephone, 
+    public Employee(String name, int age, String contactDetails, String adress, String plz, String telephone, 
     		String jobTitle, int employeeID) {
 		super(name, age, contactDetails, adress, plz, telephone);
         this.jobTitle = jobTitle;

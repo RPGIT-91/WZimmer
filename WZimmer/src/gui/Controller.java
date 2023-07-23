@@ -39,14 +39,14 @@ public class Controller {
 		//////// Datenbank initialisieren
 		this.patients = new ArrayList<>();
 		// Example patients for testing
-		Patient patient1 = new Patient("John Doe", 30, "john.doe@example.com", "Musterstrasse 1", 12, "0152565581", "A000000001", "TK", "Hemorrhoids", "10:00 AM", patients.size()+1);
+		Patient patient1 = new Patient("John Doe", 30, "john.doe@example.com", "Musterstrasse 1", "12", "0152565581", "A000000001", "TK", "Hemorrhoids", "10:00 AM", patients.size()+1);
 		patients.add(patient1);
-		Patient patient2 = new Patient("Jane Smith", 45, "jane.smith@example.com", "Musterstrasse 2", 12, "0152565582", "A000000002", "TK", "", "11:00 AM", patients.size()+1);
+		Patient patient2 = new Patient("Jane Smith", 45, "jane.smith@example.com", "Musterstrasse 2", "12", "0152565582", "A000000002", "TK", "", "11:00 AM", patients.size()+1);
 		patients.add(patient2);
 		
+	
 		//Test für Alex!!
-		Patient patient3 = new Patient(vornameGlobal, alterGlobal, "jane.smith@example.com", adresseGlobal, 12, "0152565582", "A000000002", "TK", "", "11:00 AM", patients.size()+1);
-		patients.add(patient3);
+		
 		
 		
 		
@@ -80,7 +80,8 @@ public class Controller {
 			alterGlobal = patientadden.alterGlobal;
 			adresseGlobal = patientadden.adresseGlobal;
 			
-			
+			Patient patient3 = new Patient(vornameGlobal, alterGlobal, "jane.smith@example.com", adresseGlobal, 12, "0152565582", "A000000002", "TK", "", "11:00 AM", patients.size()+1);
+			patients.add(patient3);
 		}
 	}
 

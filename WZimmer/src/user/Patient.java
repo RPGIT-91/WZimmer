@@ -10,7 +10,7 @@ public class Patient extends Person {
 	
 	//constructors to add new patient
 	//constructor with appointment time
-	public Patient(String name, int age, String contactDetails, String adress, int plz, String telephone, String insuranceNo,
+	public Patient(String name, int age, String contactDetails, String adress, String plz, String telephone, String insuranceNo,
 			String insuranceInstitute, String medicalHistory, String appointmentTime, int patientId) {
 		super(name, age, contactDetails, adress, plz, telephone);
 		this.medicalHistory = medicalHistory;
@@ -21,7 +21,7 @@ public class Patient extends Person {
 	}
 	
 	//constructor without appointment time
-	public Patient(String name, int age, String contactDetails, String adress, int plz, String telephone, String insuranceNo,
+	public Patient(String name, int age, String contactDetails, String adress, String plz, String telephone, String insuranceNo,
 			String insuranceInstitute, String medicalHistory, int patientId) {
 		super(name, age, contactDetails, adress, plz, telephone);
 		this.medicalHistory = medicalHistory;
@@ -42,7 +42,7 @@ public class Patient extends Person {
         return appointmentTime;
     }
 
-    public int getPatientId() {
+    public String getPatientId() {
         return patientId;
     }
 
@@ -64,7 +64,7 @@ public class Patient extends Person {
         this.appointmentTime = appointmentTime;
     }
 
-    public void setPatientId(int patientId) {
+    public void setPatientId(String patientId) {
         this.patientId = patientId;
     }
 

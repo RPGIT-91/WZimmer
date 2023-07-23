@@ -7,10 +7,10 @@ class Person {
     private int age;
     private String contactDetails;
     private String adress;
-    private int plz;
+    private String plz;
     private String telephone;
 
-    public Person(String name, int age, String contactDetails, String adress, int plz, String telephone) {
+    public Person(String name, int age, String contactDetails, String adress, String plz, String telephone) {
         this.name = name;
         this.age = age;
         this.contactDetails = contactDetails;
@@ -38,7 +38,7 @@ class Person {
         return adress;
     }
 
-    public int getPlz() {
+    public String getPlz() {
         return plz;
     }
 
@@ -64,7 +64,7 @@ class Person {
         this.adress = adress;
     }
 
-    public void setPlz(int plz) {
+    public void setPlz(String plz) {
         this.plz = plz;
     }
 
