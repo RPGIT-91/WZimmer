@@ -20,7 +20,6 @@ public class Anzeige extends JFrame{
 	private JTable table;
 	private JPanel waitPanel;
 	
-	//int testtesttest = 5;
     
     public Anzeige() {
     	setTitle("Waiting Room");
