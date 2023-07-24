@@ -1,5 +1,4 @@
 //Anzeige Wartezimmer
-
 package gui;
 
 import javax.swing.*;
@@ -20,6 +19,8 @@ public class Anzeige extends JFrame{
 	private DefaultTableModel tableModel;
 	private JTable table;
 	private JPanel waitPanel;
+	
+	//int testtesttest = 5;
     
     public Anzeige() {
     	setTitle("Waiting Room");
