@@ -42,7 +42,7 @@ public class Patient extends Person {
         return appointmentTime;
     }
 
-    public String getPatientId() {
+    public int getPatientId() {
         return patientId;
     }
 
