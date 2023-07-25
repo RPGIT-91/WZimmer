@@ -124,7 +124,7 @@ public class MyView extends JFrame {
         String currentTimeText = currentHour + ":" + currentMinute;
         
     	//actual frame
-    	JFrame patientInfoFrame = new JFrame("Patient Information");
+    	JFrame patientInfoFrame = new JFrame("Neuanlage Patient");
         JPanel infoPanel = new JPanel(new GridLayout(11, 2));
 
         JTextField patName = new JTextField();
