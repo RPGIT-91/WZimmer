@@ -125,7 +125,13 @@ public class MyView extends JFrame {
         
     	//actual frame
     	JFrame patientInfoFrame = new JFrame("Neuanlage Patient");
-        JPanel infoPanel = new JPanel(new GridLayout(11, 2));
+    	// Replace GridLayout with GridBagLayout for the infoPanel
+    	JPanel infoPanel = new JPanel(new GridBagLayout());
+    	GridBagConstraints gbc = new GridBagConstraints();
+    	gbc.anchor = GridBagConstraints.WEST;
+    	gbc.insets = new Insets(5, 10, 5, 10);
+    	
+        //JPanel infoPanel = new JPanel(new GridLayout(11, 2));
 
         JTextField patName = new JTextField();
         JTextField patAge = new JTextField();
@@ -138,7 +144,8 @@ public class MyView extends JFrame {
         JTextField patInsuranceInstitute = new JTextField();
         JTextField patTime = new JTextField(currentTimeText);
         JTextField patPatientId = new JTextField(Integer.toString(id));
-
+        
+        /*
         infoPanel.add(new JLabel("Name: "));
         infoPanel.add(patName);
 
@@ -172,6 +179,18 @@ public class MyView extends JFrame {
         infoPanel.add(new JLabel("Patient ID: "));
         patPatientId.setEditable(false);
         infoPanel.add(patPatientId);
+        */
+        addFormField(infoPanel, "Name:", patName);
+        addFormField(infoPanel, "Age:", patAge);
+        addFormField(infoPanel, "Contact Information:", patContDeta);
+        addFormField(infoPanel, "Address:", patAdress);
+        addFormField(infoPanel, "PLZ:", patPLZ);
+        addFormField(infoPanel, "Telephone:", patTelephone);
+        addFormField(infoPanel, "Medical History:", patMedical);
+        addFormField(infoPanel, "Insurance No:", patInsuranceNo);
+        addFormField(infoPanel, "Insurance Institute:", patInsuranceInstitute);
+        addFormField(infoPanel, "Appointment Time:", patTime);
+        addFormField(infoPanel, "Patient ID:", patPatientId);
         
         // Create Save and Cancel buttons
         JButton saveButton = new JButton("Save");
@@ -230,6 +249,10 @@ public class MyView extends JFrame {
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.add(infoPanel, BorderLayout.CENTER);
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+        
+        // Set the preferred width for the JFrame
+        int preferredWidth = 600; // Adjust this value to your desired width
+        patientInfoFrame.setPreferredSize(new Dimension(preferredWidth, 460));
 
         // Load all of the mainPanel information into the patientInfoFrame
         patientInfoFrame.add(mainPanel);
@@ -249,7 +272,10 @@ public class MyView extends JFrame {
     //Dialog mit detaillierteren Informationen zum Patienten
     public void showPatientInfo(Patient patient) {
         JFrame patientInfoFrame = new JFrame("Patient Information");
-        JPanel infoPanel = new JPanel(new GridLayout(11, 2));
+        JPanel infoPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(5, 10, 5, 10);
 
         JTextField patName = new JTextField(patient.getName());
         JTextField patAge = new JTextField(String.valueOf(patient.getAge()));
@@ -262,56 +288,56 @@ public class MyView extends JFrame {
         JTextField patInsuranceInstitute = new JTextField(patient.getInsuranceInstitute());
         JTextField patTime = new JTextField(patient.getAppointmentTime());
         JTextField patPatientId = new JTextField(String.valueOf(patient.getPatientId()));
-
-        infoPanel.add(new JLabel("Name: "));
-        patName.setEditable(false);
-        infoPanel.add(patName);
-
-        infoPanel.add(new JLabel("Age: "));
-        patAge.setEditable(false);
-        infoPanel.add(patAge);
-
-        infoPanel.add(new JLabel("Contact Information: "));
-        patContDeta.setEditable(false);
-        infoPanel.add(patContDeta);
-
-        infoPanel.add(new JLabel("Address: "));
-        patAdress.setEditable(false);
-        infoPanel.add(patAdress);
-
-        infoPanel.add(new JLabel("PLZ: "));
-        patPLZ.setEditable(false);
-        infoPanel.add(patPLZ);
-
-        infoPanel.add(new JLabel("Telephone: "));
-        patTelephone.setEditable(false);
-        infoPanel.add(patTelephone);
-
-        infoPanel.add(new JLabel("Medical History: "));
-        patMedical.setEditable(false);
-        infoPanel.add(patMedical);
-
-        infoPanel.add(new JLabel("Insurance No: "));
-        patInsuranceNo.setEditable(false);
-        infoPanel.add(patInsuranceNo);
-
-        infoPanel.add(new JLabel("Insurance Institute: "));
-        patInsuranceInstitute.setEditable(false);
-        infoPanel.add(patInsuranceInstitute);
-
-        infoPanel.add(new JLabel("Appointment Time: "));
-        patTime.setEditable(false);
-        infoPanel.add(patTime);
-
-        infoPanel.add(new JLabel("Patient ID: "));
-        patPatientId.setEditable(false);
-        infoPanel.add(patPatientId);
         
-        //Load all of the infoPanel information into the patientInfoFrame
+        // Make all text fields non-editable
+        patName.setEditable(false);
+        patAge.setEditable(false);
+        patContDeta.setEditable(false);
+        patAdress.setEditable(false);
+        patPLZ.setEditable(false);
+        patTelephone.setEditable(false);
+        patMedical.setEditable(false);
+        patInsuranceNo.setEditable(false);
+        patInsuranceInstitute.setEditable(false);
+        patTime.setEditable(false);
+        patPatientId.setEditable(false);
+
+        // Add labels and fields to the infoPanel using GridBagLayout
+        addFormField(infoPanel, "Name:", patName);
+        addFormField(infoPanel, "Age:", patAge);
+        addFormField(infoPanel, "Contact Information:", patContDeta);
+        addFormField(infoPanel, "Address:", patAdress);
+        addFormField(infoPanel, "PLZ:", patPLZ);
+        addFormField(infoPanel, "Telephone:", patTelephone);
+        addFormField(infoPanel, "Medical History:", patMedical);
+        addFormField(infoPanel, "Insurance No:", patInsuranceNo);
+        addFormField(infoPanel, "Insurance Institute:", patInsuranceInstitute);
+        addFormField(infoPanel, "Appointment Time:", patTime);
+        addFormField(infoPanel, "Patient ID:", patPatientId);
+
+        // Set the preferred width for the JFrame
+        int preferredWidth = 600; // Adjust this value to your desired width
+        patientInfoFrame.setPreferredSize(new Dimension(preferredWidth, 420));
+        
+        // Load all of the infoPanel information into the patientInfoFrame
         patientInfoFrame.add(infoPanel);
         patientInfoFrame.pack();
         patientInfoFrame.setLocationRelativeTo(null);
         patientInfoFrame.setVisible(true);
     }
     
+ // Helper method to add labels and text fields with appropriate constraints
+    private void addFormField(JPanel panel, String label, JTextField textField) {
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(5, 10, 5, 10);
+        gbc.gridx = 0;
+        gbc.gridy = panel.getComponentCount();
+        panel.add(new JLabel(label), gbc);
+
+        gbc.gridx = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
+        panel.add(textField, gbc);
+    }
 }
