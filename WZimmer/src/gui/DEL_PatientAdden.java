@@ -1,47 +1,27 @@
 package gui;
 
-import java.awt.BorderLayout;
-
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalTime;
+import javax.swing.*;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
+//Neuanlage von Patienten
+//Anlagebox und
 
-
-
-//Adden von Patienten 
-public class PatientAdden extends JFrame {
-
+//nicht mehr benutzt
+public class DEL_PatientAdden extends JFrame {
 	String vornameGlobal;
 	String nachnameGlobal;
 	String adresseGlobal;
 	int alterGlobal;
-	int telefonGlobal;
+	String telefonGlobal;
 	String versicherungGlobal;
 	String kontaktGlobal;
 	String zeitGlobal;
 	
 	//ActionListener speichernAction;
-	
-	
-	
-	
-	public PatientAdden() {
-        setTitle("Hinzufügen von Patient");
+	public DEL_PatientAdden() {
+        setTitle("Neuanlage Patient");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 400);
 
@@ -54,16 +34,12 @@ public class PatientAdden extends JFrame {
         JTextField vornametext = new JTextField();
         mainPanel.add(vorname);
         mainPanel.add(vornametext);
-      
-        
 
         // Nachname eingabe
         JLabel nachname = new JLabel("Nachname:");
         JTextField nachnametext = new JTextField();
         mainPanel.add(nachname);
         mainPanel.add(nachnametext);
-       // this.nachnameGlobal = nachnametext;
-        
 
         // Adresse eingabe
         JLabel adresse = new JLabel("Adresse:");
@@ -109,7 +85,7 @@ public class PatientAdden extends JFrame {
         mainPanel.add(uhrzeittext);
         
         
-      //ActionListener zum Speichern der Daten
+        //ActionListener zum Speichern der Daten
         JButton speichern = new JButton("Speichern");
         speichern.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent ae) {
@@ -127,19 +103,25 @@ public class PatientAdden extends JFrame {
         		 adresseGlobal = adresseString;
         		 System.out.println(adresseString);
         		 
+        		 //Es gibt leere Strings, aber keine leeren Integer.
         		 String alterInt = altertext.getText();
-        		 int alterInt1 = Integer.parseInt(alterInt);
-        		 alterGlobal = alterInt1;
-        		 System.out.println(alterInt1);
+        		 if (!alterInt.isEmpty()) {
+        		     int alterInt1 = Integer.parseInt(alterInt);
+        		     alterGlobal = alterInt1;
+        		     System.out.println(alterInt1);
+        		 } else {
+        		     int alterInt1 = 0;
+        		     alterGlobal = alterInt1;
+        		     System.out.println(alterInt1);
+        		 }
         		 
         		 String versicherungString = versicherungtext.getText();
         		 versicherungGlobal = versicherungString;
         		 System.out.println(versicherungString);
         		 
         		 String telefonString = telefontext.getText();
-        		 int telefonInt = Integer.parseInt(telefonString);
-        		 telefonGlobal = telefonInt;
-        		 System.out.println(telefonInt);
+        		 telefonGlobal = telefonString;
+        		 System.out.println(telefonString);
         		 
         		 String kontaktString = kontakttext.getText();
         		 kontaktGlobal = kontaktString;

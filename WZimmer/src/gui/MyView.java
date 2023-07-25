@@ -5,11 +5,12 @@ package gui;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-
+import java.util.function.Consumer;
 import user.*;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.time.LocalTime;
 
 public class MyView extends JFrame {
     private static final long serialVersionUID = 107214543984441388L;
@@ -116,8 +117,131 @@ public class MyView extends JFrame {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    
-    
+    public Patient addPatientNew(int id, Consumer<Patient> callback) {
+    	//get current local time
+        String currentHour = String.format("%02d", LocalTime.now().getHour());
+        String currentMinute = String.format("%02d", LocalTime.now().getMinute());
+        String currentTimeText = currentHour + ":" + currentMinute;
+        
+    	//actual frame
+    	JFrame patientInfoFrame = new JFrame("Patient Information");
+        JPanel infoPanel = new JPanel(new GridLayout(11, 2));
+
+        JTextField patName = new JTextField();
+        JTextField patAge = new JTextField();
+        JTextField patContDeta = new JTextField();
+        JTextField patAdress = new JTextField();
+        JTextField patPLZ = new JTextField();
+        JTextField patTelephone = new JTextField();
+        JTextField patMedical = new JTextField();
+        JTextField patInsuranceNo = new JTextField();
+        JTextField patInsuranceInstitute = new JTextField();
+        JTextField patTime = new JTextField(currentTimeText);
+        JTextField patPatientId = new JTextField(Integer.toString(id));
+
+        infoPanel.add(new JLabel("Name: "));
+        infoPanel.add(patName);
+
+        infoPanel.add(new JLabel("Age: "));
+        infoPanel.add(patAge);
+
+        infoPanel.add(new JLabel("Contact Information: "));
+        infoPanel.add(patContDeta);
+
+        infoPanel.add(new JLabel("Address: "));
+        infoPanel.add(patAdress);
+
+        infoPanel.add(new JLabel("PLZ: "));
+        infoPanel.add(patPLZ);
+
+        infoPanel.add(new JLabel("Telephone: "));
+        infoPanel.add(patTelephone);
+
+        infoPanel.add(new JLabel("Medical History: "));
+        infoPanel.add(patMedical);
+
+        infoPanel.add(new JLabel("Insurance No: "));
+        infoPanel.add(patInsuranceNo);
+
+        infoPanel.add(new JLabel("Insurance Institute: "));
+        infoPanel.add(patInsuranceInstitute);
+
+        infoPanel.add(new JLabel("Appointment Time: "));
+        infoPanel.add(patTime);
+
+        infoPanel.add(new JLabel("Patient ID: "));
+        patPatientId.setEditable(false);
+        infoPanel.add(patPatientId);
+        
+        // Create Save and Cancel buttons
+        JButton saveButton = new JButton("Save");
+        JButton cancelButton = new JButton("Cancel");
+
+        // Panel to hold the buttons
+        JPanel buttonPanel = new JPanel(new FlowLayout());
+        buttonPanel.add(saveButton);
+        buttonPanel.add(cancelButton);
+        
+        Patient patientToAdd = new Patient();
+
+        // Action listener for the Save button
+        saveButton.addActionListener(e -> {
+        	//Vorarbeit
+        	int alterInt;
+        	String alterString = patAge.getText();
+        	if (!alterString.isEmpty()) {
+        		try {
+        		    alterInt = Integer.parseInt(alterString);
+        		} catch (NumberFormatException f) {
+        		    alterInt = 0;
+        		}
+   		 	} else {
+   		 		alterInt = 0;
+   		 	};
+        	
+	   		patientToAdd.setName(patName.getText());
+	        patientToAdd.setAge(alterInt);
+	        patientToAdd.setContactDetails(patContDeta.getText());
+	        patientToAdd.setAdress(patAdress.getText());
+	        patientToAdd.setPlz(patPLZ.getText());
+	        patientToAdd.setTelephone(patTelephone.getText());
+	        patientToAdd.setMedicalHistory(patMedical.getText());
+	        patientToAdd.setInsuranceNo(patInsuranceNo.getText());
+	        patientToAdd.setInsuranceInstitute(patInsuranceInstitute.getText());
+	        patientToAdd.setAppointmentTime(patTime.getText());
+	        patientToAdd.setPatientId(id);
+
+            // Close the dialog after saving the data
+            patientInfoFrame.dispose();
+         // Call the callback function with the patientToAdd object
+            callback.accept(patientToAdd);
+        });
+
+        // Action listener for the Cancel button
+        cancelButton.addActionListener(e -> {
+            // Close the dialog without saving any data
+            patientInfoFrame.dispose();
+         // Call the callback function with the patientToAdd object
+            callback.accept(patientToAdd);
+        });
+        
+
+        // Panel to hold the main content and the buttons
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel.add(infoPanel, BorderLayout.CENTER);
+        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+        // Load all of the mainPanel information into the patientInfoFrame
+        patientInfoFrame.add(mainPanel);
+        patientInfoFrame.pack();
+        patientInfoFrame.setLocationRelativeTo(null);
+        patientInfoFrame.setVisible(true);
+        
+        //return the edited object within the save action listener
+        return patientToAdd;
+    }
+        
+
     
     
     
@@ -182,8 +306,8 @@ public class MyView extends JFrame {
         infoPanel.add(new JLabel("Patient ID: "));
         patPatientId.setEditable(false);
         infoPanel.add(patPatientId);
-
-        // set background color to black
+        
+        //Load all of the infoPanel information into the patientInfoFrame
         patientInfoFrame.add(infoPanel);
         patientInfoFrame.pack();
         patientInfoFrame.setLocationRelativeTo(null);

@@ -30,6 +30,15 @@ public class Patient extends Person {
 		this.insuranceInstitute = insuranceInstitute;
 		this.patientId = patientId;
 	}
+	//empty constructor
+	public Patient() {
+		super("", 0, "", "", "", "");
+		this.medicalHistory = "";
+		this.appointmentTime = "";
+		this.insuranceNo = "";
+		this.insuranceInstitute = "";
+		this.patientId = 9999;
+	}
 	
 	
 	

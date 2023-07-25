@@ -8,6 +8,7 @@ import javax.swing.table.JTableHeader;
 import user.Patient;
 
 import java.awt.*;
+import java.time.LocalTime;
 
 
 public class Anzeige extends JFrame{
@@ -38,7 +39,7 @@ public class Anzeige extends JFrame{
             }
         };
         tableModel.addColumn("Name");
-        tableModel.addColumn("Appointment Time");
+        tableModel.addColumn("Waiting Since");
 
 
         // Create the table
@@ -74,7 +75,13 @@ public class Anzeige extends JFrame{
     
     // Methode um Patienten zum Wartezimmer display hinzuzufügen
     public void addPatient(Patient patient) {
-        tableModel.addRow(new Object[]{patient.getName(), patient.getAppointmentTime()});
+    	//aktuelle Zeit, wird angegeben
+    	LocalTime currentTime = LocalTime.now();
+        String currentHour = String.format("%02d", currentTime.getHour());
+        String currentMinute = String.format("%02d", currentTime.getMinute());
+        String currentTimeText = currentHour + ":" + currentMinute;
+        tableModel.addRow(new Object[]{patient.getName(), currentTimeText});
+        		//.getAppointmentTime()
     }
     // Methode um Patienten zu löschen
     public void removePatient(Patient patient) {

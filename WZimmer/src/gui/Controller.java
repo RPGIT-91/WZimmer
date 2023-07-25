@@ -18,17 +18,6 @@ public class Controller {
 	private Anzeige waitingAnzeige;
 	private boolean isWaitingRoomRunning = false;
 	
-	//Für Patientadden eine Globale um Sie wo anders benutzen zu können
-	String vornameGlobal;
-	String nachnameGlobal;
-	String adresseGlobal;
-	int alterGlobal;
-	String telefonGlobal;
-	String versicherungGlobal;
-	String kontaktGlobal;
-	String telefonnummerGlobal;
-	String zeitGlobal;
-	
 	
 
 	//beispielhafte Daten. In einer richtigen Anwendung wäre hier eine DB Anbindung.
@@ -39,19 +28,13 @@ public class Controller {
 		//////// Datenbank initialisieren
 		this.patients = new ArrayList<>();
 		// Example patients for testing
-		Patient patient1 = new Patient("John Doe", 30, "john.doe@example.com", "Musterstrasse 1", "12", "0152565581", "A000000001", "TK", "Hemorrhoids", "10:00 AM", patients.size()+1);
+		Patient patient1 = new Patient("John Doe", 30, "john.doe@example.com", "Musterstrasse 1", "12", "0152565581", "A000000001", "TK", "Hemorrhoids", "10:00", patients.size()+1);
 		patients.add(patient1);
-		Patient patient2 = new Patient("Jane Smith", 45, "jane.smith@example.com", "Musterstrasse 2", "12", "0152565582", "A000000002", "TK", "", "11:00 AM", patients.size()+1);
+		Patient patient2 = new Patient("Jane Smith", 45, "jane.smith@example.com", "Musterstrasse 2", "12", "0152565582", "A000000002", "TK", "", "11:00", patients.size()+1);
 		patients.add(patient2);
 		
-	
-		//Test für Alex!!
 		
-		
-		
-		
-		
-		// Add patients to the view
+		// Add patients to the view/GUI
 		for (Patient patient : patients) {
 			view.addPatient(patient);
 			
@@ -71,20 +54,16 @@ public class Controller {
 	private class AddPatientListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
-			PatientAdden patientadden = new PatientAdden();
-			
-			//Daten aus Patient werden in diese Klasse gezogen und kann genutzt werden. 
-			vornameGlobal = patientadden.vornameGlobal;
-			nachnameGlobal = patientadden.nachnameGlobal;
-			alterGlobal = patientadden.alterGlobal;
-			adresseGlobal = patientadden.adresseGlobal;
-			
+			view.addPatientNew(patients.size() + 1, newPatient -> {
+				if (newPatient.getName() != "") {
+					patients.add(newPatient);
+					view.addPatient(newPatient);
+				}
 			//Patient patient3 = new Patient(vornameGlobal, alterGlobal, "jane.smith@example.com", adresseGlobal, 12, "0152565582", "A000000002", "TK", "", "11:00 AM", patients.size()+1);
 			//patients.add(patient3);
+			});
 		}
 	}
-
 	// ActionListener for the "Edit Patient" button
 	private class EditPatientListener implements ActionListener {
 		@Override
@@ -124,9 +103,9 @@ public class Controller {
                     // Handle the treatment going wrong
                 	JOptionPane.showMessageDialog(null, "Patient ist Tot.\nBeweise werden vernichtet.", "Warning", JOptionPane.INFORMATION_MESSAGE);
                 	
-                	//Delete patient info from view and from programn.
-                //	view.removePatient(behandelt.getPatientId()-1);                               
-                //	patients.remove(behandelt.getPatientId()-1);
+                	//Delete patient info from view and from program.
+                	view.removePatient(behandelt.getPatientId()-1);                               
+                	patients.remove(behandelt.getPatientId()-1);
                 	//add deletion from txt.                	
                 	
                 	
@@ -138,6 +117,11 @@ public class Controller {
         	else {
         		JOptionPane.showMessageDialog(null, "No patients in the waitingroom.", "Warning", JOptionPane.INFORMATION_MESSAGE);
         	}
+        	
+        	//Currently waiting update
+        	 JPanel waitPanel = waitingAnzeige.getWaitPanel();
+             JLabel waitingLabel = (JLabel) waitPanel.getComponent(0);
+             waitingLabel.setText("Currently Waiting: " + waitingAnzeige.getRows());
          
         }
     };
