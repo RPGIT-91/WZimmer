@@ -80,8 +80,8 @@ public class Controller {
 			alterGlobal = patientadden.alterGlobal;
 			adresseGlobal = patientadden.adresseGlobal;
 			
-			Patient patient3 = new Patient(vornameGlobal, alterGlobal, "jane.smith@example.com", adresseGlobal, 12, "0152565582", "A000000002", "TK", "", "11:00 AM", patients.size()+1);
-			patients.add(patient3);
+			//Patient patient3 = new Patient(vornameGlobal, alterGlobal, "jane.smith@example.com", adresseGlobal, 12, "0152565582", "A000000002", "TK", "", "11:00 AM", patients.size()+1);
+			//patients.add(patient3);
 		}
 	}
 
@@ -125,8 +125,8 @@ public class Controller {
                 	JOptionPane.showMessageDialog(null, "Patient ist Tot.\nBeweise werden vernichtet.", "Warning", JOptionPane.INFORMATION_MESSAGE);
                 	
                 	//Delete patient info from view and from programn.
-                	view.removePatient(behandelt.getPatientId()-1);                               
-                	patients.remove(behandelt.getPatientId()-1);
+                //	view.removePatient(behandelt.getPatientId()-1);                               
+                //	patients.remove(behandelt.getPatientId()-1);
                 	//add deletion from txt.                	
                 	
                 	
