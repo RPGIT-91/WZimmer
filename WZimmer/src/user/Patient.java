@@ -64,7 +64,7 @@ public class Patient extends Person {
         this.appointmentTime = appointmentTime;
     }
 
-    public void setPatientId(String patientId) {
+    public void setPatientId(int patientId) {
         this.patientId = patientId;
     }
 
