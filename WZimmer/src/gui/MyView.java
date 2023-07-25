@@ -110,7 +110,7 @@ public class MyView extends JFrame {
     	addToWaitListButton.addActionListener(listener);
     }
     
-    //method to determine whether an entry has been selected
+    //helper method to determine whether an entry has been selected
     public int getSelectedRowIndex() {
         return table.getSelectedRow();
     }
@@ -145,41 +145,6 @@ public class MyView extends JFrame {
         JTextField patTime = new JTextField(currentTimeText);
         JTextField patPatientId = new JTextField(Integer.toString(id));
         
-        /*
-        infoPanel.add(new JLabel("Name: "));
-        infoPanel.add(patName);
-
-        infoPanel.add(new JLabel("Age: "));
-        infoPanel.add(patAge);
-
-        infoPanel.add(new JLabel("Contact Information: "));
-        infoPanel.add(patContDeta);
-
-        infoPanel.add(new JLabel("Address: "));
-        infoPanel.add(patAdress);
-
-        infoPanel.add(new JLabel("PLZ: "));
-        infoPanel.add(patPLZ);
-
-        infoPanel.add(new JLabel("Telephone: "));
-        infoPanel.add(patTelephone);
-
-        infoPanel.add(new JLabel("Medical History: "));
-        infoPanel.add(patMedical);
-
-        infoPanel.add(new JLabel("Insurance No: "));
-        infoPanel.add(patInsuranceNo);
-
-        infoPanel.add(new JLabel("Insurance Institute: "));
-        infoPanel.add(patInsuranceInstitute);
-
-        infoPanel.add(new JLabel("Appointment Time: "));
-        infoPanel.add(patTime);
-
-        infoPanel.add(new JLabel("Patient ID: "));
-        patPatientId.setEditable(false);
-        infoPanel.add(patPatientId);
-        */
         addFormField(infoPanel, "Name:", patName);
         addFormField(infoPanel, "Age:", patAge);
         addFormField(infoPanel, "Contact Information:", patContDeta);
@@ -263,10 +228,6 @@ public class MyView extends JFrame {
         //return the edited object within the save action listener
         return patientToAdd;
     }
-        
-
-    
-    
     
 //////////////////////////////////////////////////////////////////////////////////////////////////////////   
     //Dialog mit detaillierteren Informationen zum Patienten
@@ -326,6 +287,7 @@ public class MyView extends JFrame {
         patientInfoFrame.setVisible(true);
     }
     
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
  // Helper method to add labels and text fields with appropriate constraints
     private void addFormField(JPanel panel, String label, JTextField textField) {
         GridBagConstraints gbc = new GridBagConstraints();
