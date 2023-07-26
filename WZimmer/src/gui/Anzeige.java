@@ -68,7 +68,7 @@ public class Anzeige extends JFrame{
         
         
         
-      //Setzt das Fenster in die Mitte
+      //Setzt das Wartezimmer-Fenster in die Mitte
         setLocationRelativeTo(null);
         this.setVisible(true);
 		}

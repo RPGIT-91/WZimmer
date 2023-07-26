@@ -30,6 +30,14 @@ public class MyView extends JFrame {
      // Set the size of the window to 1280x720 pixels.
      setSize(1280, 720);
 
+     // Der folgende Code zentriert das Fenster auf dem Bildschirm.
+     setLocationRelativeTo(null);
+
+     // Restlichen Code...
+     // Make the window visible.
+     this.setVisible(true);
+ 
+
      // Create a new DefaultTableModel, which is the data model for a JTable.
      tableModel = new DefaultTableModel() {
          private static final long serialVersionUID = 7613152197870578936L;
@@ -336,5 +344,5 @@ private void addFormField(JPanel panel, String label, JTextField textField) {
  gbc.weightx = 1.0;
  // Add the text field to the panel.
  panel.add(textField, gbc);
-}
+	}
 }

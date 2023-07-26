@@ -9,7 +9,7 @@ class Person {
     private int age;
     private String contactDetails;
     private String adress;
-    private String plz; // This seems to stand for postal code (Postleitzahl in German)
+    private String plz;
     private String telephone;
 
     // This is the constructor for the Person class. It is called when a new instance of the Person class is created.
