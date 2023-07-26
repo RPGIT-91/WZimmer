@@ -25,7 +25,8 @@ public class Anzeige extends JFrame{
     
     public Anzeige() {
     	setTitle("Waiting Room");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //schließt das ganze Programm -> sollte nicht sein juju
+    	setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //juju
         setSize(1280, 720);
 
         // Create the table model

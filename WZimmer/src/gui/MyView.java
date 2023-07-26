@@ -23,6 +23,8 @@ public class MyView extends JFrame {
  private JButton viewButton;
  private JButton actionButton;
  private JButton addToWaitListButton;
+ private JButton openWaitListButton; //juju
+
 
  public MyView() {
      // Set the title of the window to "Patients"
@@ -77,6 +79,8 @@ public class MyView extends JFrame {
      viewButton = new JButton("View Details");
      actionButton = new JButton("Behandlung Abschliessen");
      addToWaitListButton = new JButton("Add to Waitlist");
+     openWaitListButton = new JButton("Open Waitlist"); //juju
+
 
      // Create a JPanel to hold the buttons. This panel uses a FlowLayout, which arranges components in a directional flow.
      JPanel buttonPanel = new JPanel(new FlowLayout());
@@ -86,6 +90,8 @@ public class MyView extends JFrame {
      buttonPanel.add(viewButton);
      buttonPanel.add(actionButton);
      buttonPanel.add(addToWaitListButton);
+     buttonPanel.add(openWaitListButton); //juju
+
 
      // Set the layout manager of the window to BorderLayout, which arranges components to fit in five regions: north, south, east, west, and center.
      setLayout(new BorderLayout());
@@ -134,6 +140,11 @@ public void addBehandlungListener(ActionListener listener) {
 public void addToWaitListListener(ActionListener listener) {
   addToWaitListButton.addActionListener(listener);
 }
+
+public void addOpenWaitListListener(ActionListener listener) {
+	  openWaitListButton.addActionListener(listener);
+	} // juju
+
   
 //Helper method to get the index of the currently selected row in the table.
 public int getSelectedRowIndex() {
