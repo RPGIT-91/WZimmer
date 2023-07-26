@@ -62,7 +62,7 @@ public class Patient extends Person {
     public String getInsuranceInstitute() {
         return insuranceInstitute;
     }
-
+    
     
     // Setters
     public void setMedicalHistory(String medicalHistory) {
