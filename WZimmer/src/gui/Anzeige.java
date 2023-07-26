@@ -40,7 +40,7 @@ public class Anzeige extends JFrame{
         };
         tableModel.addColumn("Name");
         tableModel.addColumn("Waiting Since");
-
+        
 
         // Create the table
         table = new JTable(tableModel);
@@ -73,6 +73,7 @@ public class Anzeige extends JFrame{
         this.setVisible(true);
 		}
     
+    
     // Methode um Patienten zum Wartezimmer display hinzuzufügen
     public void addPatient(Patient patient) {
     	//aktuelle Zeit, wird angegeben
@@ -83,6 +84,7 @@ public class Anzeige extends JFrame{
         tableModel.addRow(new Object[]{patient.getName(), currentTimeText});
         		//.getAppointmentTime()
     }
+    
     // Methode um Patienten zu löschen
     public void removePatient(Patient patient) {
     	tableModel.removeRow(0);

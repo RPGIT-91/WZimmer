@@ -1,5 +1,7 @@
 package gui;
 
+//Class to configure the start screen "Patients"
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -30,10 +32,9 @@ public class MyView extends JFrame {
      // Set the size of the window to 1280x720 pixels.
      setSize(1280, 720);
 
-     // Der folgende Code zentriert das Fenster auf dem Bildschirm.
+     // The following code centers the window
      setLocationRelativeTo(null);
 
-     // Restlichen Code...
      // Make the window visible.
      this.setVisible(true);
  
