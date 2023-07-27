@@ -132,7 +132,7 @@ public void addEditPatientListener(ActionListener listener) {
 public void addViewDetailsListener(ActionListener listener) {
   viewButton.addActionListener(listener);
 }
-  
+ 
 public void addBehandlungListener(ActionListener listener) {
   actionButton.addActionListener(listener);
 }

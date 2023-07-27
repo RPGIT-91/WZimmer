@@ -145,9 +145,12 @@ public class Controller {
         	}
         	
         	// Update the number of currently waiting patients
-        	JPanel waitPanel = waitingAnzeige.getWaitPanel();
-            JLabel waitingLabel = (JLabel) waitPanel.getComponent(0);
-            waitingLabel.setText("Currently Waiting: " + waitingAnzeige.getRows());
+        	if (waitingAnzeige != null) {
+        		JPanel waitPanel = waitingAnzeige.getWaitPanel();
+                JLabel waitingLabel = (JLabel) waitPanel.getComponent(0);
+                waitingLabel.setText("Currently Waiting: " + waitingAnzeige.getRows());
+        	}
+
         }
     };
 
@@ -182,6 +185,7 @@ public class Controller {
         }
     }
 
+    
     // Helper method to get the selected patient
     private Patient getSelectedPatient(int selectedRow) {
         // Check if the provided row index is valid, and if it is, return the patient at that index
