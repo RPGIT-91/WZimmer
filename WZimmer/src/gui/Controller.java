@@ -62,11 +62,43 @@ public class Controller {
 
 	// ActionListener for the "Edit Patient" button
 	private class EditPatientListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// Logic for editing a patient's details goes here
-		}
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+	        int selectedRow = view.getSelectedRowIndex();
+	        if (selectedRow != -1) {
+	            Patient selectedPatient = patients.get(selectedRow);
+	            view.editPatientInfo(selectedPatient, editedPatient -> {
+	                // Update the selectedPatient with the changes from the editedPatient
+	                selectedPatient.setName(editedPatient.getName());
+	                selectedPatient.setAge(editedPatient.getAge());
+	                selectedPatient.setContactDetails(editedPatient.getContactDetails());
+	                selectedPatient.setAdress(editedPatient.getAdress());
+	                selectedPatient.setPlz(editedPatient.getPlz());
+	                selectedPatient.setTelephone(editedPatient.getTelephone());
+	                selectedPatient.setMedicalHistory(editedPatient.getMedicalHistory());
+	                selectedPatient.setInsuranceNo(editedPatient.getInsuranceNo());
+	                selectedPatient.setInsuranceInstitute(editedPatient.getInsuranceInstitute());
+	                selectedPatient.setAppointmentTime(editedPatient.getAppointmentTime());
+
+	                // Now, the changes made to the selectedPatient are saved.
+	                // You can also trigger any further actions or updates here.
+
+	                // For example, you can update the view to reflect the changes:
+	                view.updatePatient(selectedRow, editedPatient);
+	                //list of patients in the controller, you can update it as well.
+	                patients.set(selectedRow, editedPatient);
+	            });
+	        } else {
+	            JOptionPane.showMessageDialog(view, "Please select a patient.", "Warning", JOptionPane.INFORMATION_MESSAGE);
+	        }
+	    }
 	}
+
+
+
+
+
+
 
 	// ActionListener for the "View Details" button
 	private class ViewDetailsListener implements ActionListener {

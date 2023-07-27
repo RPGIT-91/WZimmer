@@ -263,10 +263,165 @@ public Patient addPatientNew(int id, Consumer<Patient> callback) {
   patientInfoFrame.pack();
   patientInfoFrame.setLocationRelativeTo(null);
   patientInfoFrame.setVisible(true);
-  
+ 
   // Return the edited object within the save action listener.
   return patientToAdd;
   }
+
+
+
+
+
+
+
+
+
+public void editPatientInfo(Patient patient, Consumer<Patient> callback) {
+    // Fetch the current time.
+    String currentHour = String.format("%02d", LocalTime.now().getHour());
+    String currentMinute = String.format("%02d", LocalTime.now().getMinute());
+    String currentTimeText = currentHour + ":" + currentMinute;
+
+    // Create a new JFrame to collect patient details.
+    JFrame patientInfoFrame = new JFrame("Edit Patient Information");
+    JPanel infoPanel = new JPanel(new GridBagLayout());
+
+    // Setup constraints for the layout.
+    GridBagConstraints gbc = new GridBagConstraints();
+    gbc.anchor = GridBagConstraints.WEST;
+    gbc.insets = new Insets(5, 10, 5, 10);
+
+    // Define text fields for each attribute of the Patient object. The text fields are initialized with the corresponding patient information.
+    JTextField patName = new JTextField(patient.getName());
+    JTextField patAge = new JTextField(String.valueOf(patient.getAge()));
+    JTextField patContDeta = new JTextField(patient.getContactDetails());
+    JTextField patAdress = new JTextField(patient.getAdress());
+    JTextField patPLZ = new JTextField(String.valueOf(patient.getPlz()));
+    JTextField patTelephone = new JTextField(String.valueOf(patient.getTelephone()));
+    JTextField patMedical = new JTextField(patient.getMedicalHistory());
+    JTextField patInsuranceNo = new JTextField(patient.getInsuranceNo());
+    JTextField patInsuranceInstitute = new JTextField(patient.getInsuranceInstitute());
+    JTextField patTime = new JTextField(patient.getAppointmentTime());
+    JTextField patPatientId = new JTextField(String.valueOf(patient.getPatientId()));
+
+    // Add these fields to the info panel.
+    addFormField(infoPanel, "Name:", patName);
+    addFormField(infoPanel, "Age:", patAge);
+    addFormField(infoPanel, "Contact Information:", patContDeta);
+    addFormField(infoPanel, "Adress:", patAdress);
+    addFormField(infoPanel, "PLZ:", patPLZ);
+    addFormField(infoPanel, "Telephone:", patTelephone);
+    addFormField(infoPanel, "Medical History:", patMedical);
+    addFormField(infoPanel, "Insurance No:", patInsuranceNo);
+    addFormField(infoPanel, "Insurance Institute:", patInsuranceInstitute);
+    addFormField(infoPanel, "Appointment Time:", patTime);
+    addFormField(infoPanel, "Patient ID:", patPatientId);
+
+    // Create the Save and Cancel buttons.
+    JButton saveButton = new JButton("Save");
+    JButton cancelButton = new JButton("Cancel");
+
+    // Panel to hold the buttons.
+    JPanel buttonPanel = new JPanel(new FlowLayout());
+    buttonPanel.add(saveButton);
+    buttonPanel.add(cancelButton);
+
+    // Listener for the Save button.
+    saveButton.addActionListener(e -> {
+        // Check if the Age field is not empty and parse it to an integer, if it fails, default to 0.
+        int alterInt;
+        String alterString = patAge.getText();
+        if (!alterString.isEmpty()) {
+            try {
+                alterInt = Integer.parseInt(alterString);
+            } catch (NumberFormatException f) {
+                alterInt = 0;
+            }
+        } else {
+            alterInt = 0;
+        }
+
+        // Update the fields of the existing patient object with the information from the text fields.
+        patient.setName(patName.getText());
+        patient.setAge(alterInt);
+        patient.setContactDetails(patContDeta.getText());
+        patient.setAdress(patAdress.getText());
+        patient.setPlz(patPLZ.getText());
+        patient.setTelephone(patTelephone.getText());
+        patient.setMedicalHistory(patMedical.getText());
+        patient.setInsuranceNo(patInsuranceNo.getText());
+        patient.setInsuranceInstitute(patInsuranceInstitute.getText());
+        patient.setAppointmentTime(patTime.getText());
+
+        // Close the dialog after saving the data.
+        patientInfoFrame.dispose();
+
+        // Call the callback function with the modified patient object.
+        callback.accept(patient);
+    });
+
+    // Listener for the Cancel button.
+    cancelButton.addActionListener(e -> {
+        // Close the dialog without saving any data.
+        patientInfoFrame.dispose();
+
+        // Call the callback function with the original patient object without any changes.
+        callback.accept(patient);
+    });
+
+    // Panel to hold the main content (infoPanel) and the buttons.
+    JPanel mainPanel = new JPanel(new BorderLayout());
+    mainPanel.add(infoPanel, BorderLayout.CENTER);
+    mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+    // Set the preferred width for the JFrame.
+    int preferredWidth = 600; // Adjust this value to your desired width.
+    patientInfoFrame.setPreferredSize(new Dimension(preferredWidth, 460));
+
+    // Load all of the mainPanel information into the patientInfoFrame.
+    patientInfoFrame.add(mainPanel);
+    patientInfoFrame.pack();
+    patientInfoFrame.setLocationRelativeTo(null);
+    patientInfoFrame.setVisible(true);
+}
+
+//Method to update the patient, with the edited changes. 
+public void updatePatient(int rowIndex, Patient updatedPatient) {
+    // Get the number of columns in the table model.
+    int numColumns = tableModel.getColumnCount();
+
+    // Loop through each column in the row and update the corresponding data.
+    for (int colIndex = 0; colIndex < numColumns; colIndex++) {
+        // Get the value from the updatedPatient object based on the column index.
+        Object value;
+        switch (colIndex) {
+            case 0:
+                value = updatedPatient.getName();
+                break;
+            case 1:
+                value = updatedPatient.getAge();
+                break;
+            case 2:
+                value = updatedPatient.getAppointmentTime();
+                break;
+            default:
+                value = null; // Handle additional columns if necessary.
+        }
+
+        // Update the value in the table model.
+        tableModel.setValueAt(value, rowIndex, colIndex);
+    }
+}
+
+
+
+
+
+
+
+
+
+
 
 //Here we define a method called "showPatientInfo". The method receives a Patient object as an argument.
 public void showPatientInfo(Patient patient) {
