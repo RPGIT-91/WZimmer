@@ -277,10 +277,6 @@ public Patient addPatientNew(int id, Consumer<Patient> callback) {
 
 
 public void editPatientInfo(Patient patient, Consumer<Patient> callback) {
-    // Fetch the current time.
-    String currentHour = String.format("%02d", LocalTime.now().getHour());
-    String currentMinute = String.format("%02d", LocalTime.now().getMinute());
-    String currentTimeText = currentHour + ":" + currentMinute;
 
     // Create a new JFrame to collect patient details.
     JFrame patientInfoFrame = new JFrame("Edit Patient Information");

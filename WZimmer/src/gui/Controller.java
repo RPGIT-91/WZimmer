@@ -171,7 +171,7 @@ public class Controller {
                     waitingAnzeige = new Anzeige();
                     isWaitingRoomRunning = true;
                 }
-
+                
                 // Update the waiting room display with the patients in the waiting room
                 waitingAnzeige.addPatient(selectedPatient);
                 
