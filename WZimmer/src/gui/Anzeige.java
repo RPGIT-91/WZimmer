@@ -10,7 +10,7 @@ import user.Patient;
 import java.awt.*;
 import java.time.LocalTime;
 
-public class Anzeige extends JFrame implements IAnzeigeOperations {
+class Anzeige extends JFrame implements IAnzeigeOperations {
 	//Wartezimmer Anzeige
 	
     // Set up the frame
@@ -23,8 +23,8 @@ public class Anzeige extends JFrame implements IAnzeigeOperations {
     
     public Anzeige() {
     	setTitle("Waiting Room");
-        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //schließt das ganze Programm -> sollte nicht sein juju
-    	setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //juju
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //schließt das ganze Programm -> wir bleiben dabei.
+    	//setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //juju
         setSize(1280, 720);
 
         // Create the table model

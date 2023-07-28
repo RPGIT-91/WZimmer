@@ -6,7 +6,7 @@ import java.util.Queue;
 import javax.swing.JOptionPane;
 import user.Patient;
 
-public class WaitingRoom implements IWaitingRoomOperations {
+class WaitingRoom implements IWaitingRoomOperations {
     private Queue<Patient> patientsWaitroom;
     private Patient behandelt;
 
@@ -44,6 +44,7 @@ public class WaitingRoom implements IWaitingRoomOperations {
     public Queue<Patient> getPatients() {
         return patientsWaitroom;
     }
+    
 }
 
 

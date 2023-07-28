@@ -15,8 +15,8 @@ import user.Patient;
 public class Controller {
 	private MyView view; // The main view instance used to interact with GUI
 	private List<Patient> patients; // The list of patients
-	private WaitingRoom waitingRoom; // The waiting room instance
-	private Anzeige waitingAnzeige; // The display instance to show waiting room
+	private IWaitingRoomOperations waitingRoom; // The waiting room instance
+	private IAnzeigeOperations waitingAnzeige; // The display instance to show waiting room
 	private boolean isWaitingRoomRunning = false; // Boolean to check if waiting room is running or not
 
 	// Constructor for the Controller class
@@ -119,7 +119,10 @@ public class Controller {
 	private class BehandlungListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+        	//save name of patient getting treatment for message dialog
+        	String patname = waitingRoom.getPatients().peek().getName();
         	// Remove a patient from the waiting room and display. Simulate a random outcome of the treatment
+        	
         	Patient behandelt = waitingRoom.doTreatment();
         	if (behandelt != null) {
         		waitingAnzeige.removePatient(behandelt);
@@ -127,9 +130,9 @@ public class Controller {
                 Random random = new Random();
                 int chance = random.nextInt(100);
                 
-                if (chance < 90) {
+                if (chance < 20) {
                 	// If the random number is less than 90, simulate an unsuccessful treatment
-                	JOptionPane.showMessageDialog(null, patients.get(0).getName() + " has died.\nDestroying evidence.", "Warning", JOptionPane.INFORMATION_MESSAGE);
+                	JOptionPane.showMessageDialog(null, patname + " has died.\nDestroying evidence.", "Warning", JOptionPane.INFORMATION_MESSAGE);
                 	
                 	// Delete the patient's details from the view and the patient list
                 	view.removePatient(behandelt.getPatientId()-1);                               
@@ -137,7 +140,7 @@ public class Controller {
                 	
                 } else {
                 	// If the random number is greater than or equal to 90, simulate a successful treatment
-                	JOptionPane.showMessageDialog(null, "Patient is alive.\nWe have nothing to do with organ trafficking.", "Warning", JOptionPane.INFORMATION_MESSAGE);
+                	JOptionPane.showMessageDialog(null, patname + " is alive.\nWe have nothing to do with organ trafficking.", "Warning", JOptionPane.INFORMATION_MESSAGE);
                 }
         	} else {
         		// If no patient is in the waiting room, display a warning

@@ -23,7 +23,6 @@ public class MyView extends JFrame {
  private JButton viewButton;
  private JButton actionButton;
  private JButton addToWaitListButton;
- private JButton openWaitListButton; //juju
 
 
  public MyView() {
@@ -55,7 +54,10 @@ public class MyView extends JFrame {
      // Add columns to the table model with the following names.
      tableModel.addColumn("Name");
      tableModel.addColumn("Age");
-     tableModel.addColumn("Appointment Time");
+     tableModel.addColumn("Contact Details");
+     tableModel.addColumn("Insurance no");
+     tableModel.addColumn("Medical History");
+     tableModel.addColumn("Time");
 
      // Create a new JTable using the previously created table model.
      table = new JTable(tableModel);
@@ -79,7 +81,6 @@ public class MyView extends JFrame {
      viewButton = new JButton("View Details");
      actionButton = new JButton("Behandlung Abschliessen");
      addToWaitListButton = new JButton("Add to Waitlist");
-     openWaitListButton = new JButton("Open Waitlist"); //juju
 
 
      // Create a JPanel to hold the buttons. This panel uses a FlowLayout, which arranges components in a directional flow.
@@ -90,7 +91,6 @@ public class MyView extends JFrame {
      buttonPanel.add(viewButton);
      buttonPanel.add(actionButton);
      buttonPanel.add(addToWaitListButton);
-     buttonPanel.add(openWaitListButton); //juju
 
 
      // Set the layout manager of the window to BorderLayout, which arranges components to fit in five regions: north, south, east, west, and center.
@@ -110,7 +110,7 @@ public class MyView extends JFrame {
 //Method to add a Patient object to the table model.
 public void addPatient(Patient patient) {
   // Add a row to the table model using the patient's name, age, and appointment time.
-  tableModel.addRow(new Object[]{patient.getName(), patient.getAge(), patient.getAppointmentTime()});
+  tableModel.addRow(new Object[]{patient.getName(), patient.getAge(), patient.getContactDetails(), patient.getInsuranceNo(), patient.getMedicalHistory(), patient.getAppointmentTime()});
 }
 
 //Method to remove a Patient object from the table model.
@@ -141,9 +141,6 @@ public void addToWaitListListener(ActionListener listener) {
   addToWaitListButton.addActionListener(listener);
 }
 
-public void addOpenWaitListListener(ActionListener listener) {
-	  openWaitListButton.addActionListener(listener);
-	} // juju
 
   
 //Helper method to get the index of the currently selected row in the table.
@@ -381,6 +378,13 @@ public void editPatientInfo(Patient patient, Consumer<Patient> callback) {
     patientInfoFrame.setVisible(true);
 }
 
+
+
+
+
+
+
+
 //Method to update the patient, with the edited changes. 
 public void updatePatient(int rowIndex, Patient updatedPatient) {
     // Get the number of columns in the table model.
@@ -391,18 +395,27 @@ public void updatePatient(int rowIndex, Patient updatedPatient) {
         // Get the value from the updatedPatient object based on the column index.
         Object value;
         switch (colIndex) {
-            case 0:
-                value = updatedPatient.getName();
-                break;
-            case 1:
-                value = updatedPatient.getAge();
-                break;
-            case 2:
-                value = updatedPatient.getAppointmentTime();
-                break;
-            default:
-                value = null; // Handle additional columns if necessary.
-        }
+        case 0:
+            value = updatedPatient.getName();
+            break;
+        case 1:
+            value = updatedPatient.getAge();
+            break;
+        case 2:
+            value = updatedPatient.getContactDetails();
+            break;
+        case 3:
+            value = updatedPatient.getInsuranceNo();
+            break;
+        case 4:
+            value = updatedPatient.getMedicalHistory();
+            break;
+        case 5:
+            value = updatedPatient.getAppointmentTime();
+            break;
+        default:
+            value = null; // Handle additional columns if necessary.
+    }
 
         // Update the value in the table model.
         tableModel.setValueAt(value, rowIndex, colIndex);
