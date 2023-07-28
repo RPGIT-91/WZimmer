@@ -129,7 +129,7 @@ public class Controller {
                 
                 if (chance < 90) {
                 	// If the random number is less than 90, simulate an unsuccessful treatment
-                	JOptionPane.showMessageDialog(null, "Patient has died.\nDestroying evidence.", "Warning", JOptionPane.INFORMATION_MESSAGE);
+                	JOptionPane.showMessageDialog(null, patients.get(0).getName() + " has died.\nDestroying evidence.", "Warning", JOptionPane.INFORMATION_MESSAGE);
                 	
                 	// Delete the patient's details from the view and the patient list
                 	view.removePatient(behandelt.getPatientId()-1);                               

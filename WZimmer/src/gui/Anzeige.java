@@ -1,4 +1,4 @@
-//Anzeige Wartezimmer
+// Anzeige Wartezimmer
 package gui;
 
 import javax.swing.*;
@@ -10,10 +10,8 @@ import user.Patient;
 import java.awt.*;
 import java.time.LocalTime;
 
-
-public class Anzeige extends JFrame{
+public class Anzeige extends JFrame implements IAnzeigeOperations {
 	//Wartezimmer Anzeige
-	
 	
     // Set up the frame
     private static final long serialVersionUID = 1L;
@@ -75,29 +73,30 @@ public class Anzeige extends JFrame{
 		}
     
     
-    // Methode um Patienten zum Wartezimmer display hinzuzufügen
+    @Override
     public void addPatient(Patient patient) {
-    	//aktuelle Zeit, wird angegeben
-    	LocalTime currentTime = LocalTime.now();
+        // aktuelle Zeit, wird angegeben
+        LocalTime currentTime = LocalTime.now();
         String currentHour = String.format("%02d", currentTime.getHour());
         String currentMinute = String.format("%02d", currentTime.getMinute());
         String currentTimeText = currentHour + ":" + currentMinute;
         tableModel.addRow(new Object[]{patient.getName(), currentTimeText});
-        		//.getAppointmentTime()
+        // .getAppointmentTime()
     }
-    
-    // Methode um Patienten zu löschen
+
+    @Override
     public void removePatient(Patient patient) {
-    	tableModel.removeRow(0);
+        tableModel.removeRow(0);
     }
-    
-    // Getter for the waitPanel
+
+    @Override
     public JPanel getWaitPanel() {
         return waitPanel;
     }
-    
+
+    @Override
     public int getRows() {
-    	return table.getRowCount();
+        return table.getRowCount();
     }
     
 }
