@@ -65,7 +65,7 @@ public class Patient extends Person {
         return insuranceInstitute;
     }
 
-    // Setter methods for the class variables. These allow you to change the values of these variables for an instance of the class.
+    // Setter methods for the class variables
     public void setMedicalHistory(String medicalHistory) {
         this.medicalHistory = medicalHistory;
     }
@@ -85,9 +85,59 @@ public class Patient extends Person {
     public void setInsuranceInstitute(String insuranceInstitute) {
         this.insuranceInstitute = insuranceInstitute;
     }
+    
+    
+    
+    
+ //Abstrakte Klasse
+ // Implementing the inherited abstract methods from the Person class
+    public String getName() {
+        return super.name;
+    }
 
-    /*public Object[] prepPatient() {
-        Object[] array = new Object[{Patient.getName(), Patient.getAge(), Patient.getAppointmentTime()}];
-        return array;
-    }*/
+    public int getAge() {
+        return super.age;
+    }
+
+    public String getContactDetails() {
+        return super.contactDetails;
+    }
+
+    public String getAdress() {
+        return super.adress;
+    }
+
+    public String getPlz() {
+        return super.plz;
+    }
+
+    public String getTelephone() {
+        return super.telephone;
+    }
+
+    
+    //setter für die abstrakte Person Klasse
+    public void setName(String name) {
+        super.name = name;
+    }
+
+    public void setAge(int age) {
+        super.age = age;
+    }
+
+    public void setContactDetails(String contactDetails) {
+        super.contactDetails = contactDetails;
+    }
+
+    public void setAdress(String adress) {
+        super.adress = adress;
+    }
+
+    public void setPlz(String plz) {
+        super.plz = plz;
+    }
+
+    public void setTelephone(String telephone) {
+        super.telephone = telephone;
+    }
 }
