@@ -1,11 +1,10 @@
 package gui;
 import java.util.Queue;
 
-import user.Patient;
+import user.*;
 
-interface IWaitingRoomOperations {
-    void addPatient(Patient patient);
-    void removePatient(Patient patient);
-    Patient doTreatment();
-    Queue<Patient> getPatients();
+interface IWaitingRoomOperations extends ICommonOperations {
+
+    Person doTreatment();
+    Queue<Person> getPersons();
 }

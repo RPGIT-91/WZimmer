@@ -1,6 +1,6 @@
 package user;
 
-abstract class Person {
+public abstract class Person {
     // These are the instance variables of the Person class.
     protected String name;
     protected int age;

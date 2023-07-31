@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 import java.time.LocalTime;
 
 //This class extends JFrame, which means it represents a window that can be opened on the desktop.
-public class MyView extends JFrame {
+public class MyView extends JFrame implements ICommonOperations{
  // These are the class's fields. Each instance of MyView will have its own copy of these.
  private static final long serialVersionUID = 107214543984441388L;
 	private DefaultTableModel tableModel;
@@ -37,14 +37,13 @@ public class MyView extends JFrame {
      setLocationRelativeTo(null);
 
      // Make the window visible.
-     this.setVisible(true);
+     setVisible(true);
  
 
      // Create a new DefaultTableModel, which is the data model for a JTable.
      tableModel = new DefaultTableModel() {
          private static final long serialVersionUID = 7613152197870578936L;
 
-			@Override
          public boolean isCellEditable(int row, int column) {
              // This method overrides the default isCellEditable method to prevent cells from being edited.
              return false;
@@ -101,22 +100,37 @@ public class MyView extends JFrame {
      add(buttonPanel, BorderLayout.SOUTH);
      
      // Make the window visible.
-     this.setVisible(true);
+     setVisible(true);
  }
 
 
 
     
 //Method to add a Patient object to the table model.
-public void addPatient(Patient patient) {
+public void addPatient(Person person) {
   // Add a row to the table model using the patient's name, age, and appointment time.
-  tableModel.addRow(new Object[]{patient.getName(), patient.getAge(), patient.getContactDetails(), patient.getInsuranceNo(), patient.getMedicalHistory(), patient.getAppointmentTime()});
-}
+	if (person instanceof Patient) {
+        // If the object is an instance of Patient, cast it to Patient and add the row accordingly.
+        Patient patient = (Patient) person;
+        tableModel.addRow(new Object[]{patient.getName(), patient.getAge(), patient.getContactDetails(), patient.getInsuranceNo(), patient.getMedicalHistory(), patient.getAppointmentTime()});
+    } else {
+        // Handle other subclasses of Person here, if needed.
+        // For example, if you have a StaffMember subclass, you can add specific handling for it.
+    }}
 
 //Method to remove a Patient object from the table model.
-public void removePatient(int patientID) {
+public void removePatient(Person person) {
+	if (person instanceof Patient) {
+        // If the object is an instance of Patient, cast it to Patient and add the row accordingly.
+		Patient patient = (Patient) person;
+		int patientID = patient.getPatientId()-1;
+		tableModel.removeRow(patientID);    } 
+	else {
+        // Handle other subclasses of Person here, if needed.
+        // For example, if you have a StaffMember subclass, you can add specific handling for it.
+    }
   // Remove a row from the table model using the patient's ID.
-  tableModel.removeRow(patientID);
+
 }
 
 //Methods to add action listeners to the buttons.

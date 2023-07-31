@@ -4,18 +4,18 @@ package gui;
 import java.util.LinkedList;
 import java.util.Queue;
 import javax.swing.JOptionPane;
-import user.Patient;
+import user.*;
 
 class WaitingRoom implements IWaitingRoomOperations {
-    private Queue<Patient> patientsWaitroom;
-    private Patient behandelt;
+    private Queue<Person> patientsWaitroom;
+    private Person behandelt;
 
     public WaitingRoom() {
         patientsWaitroom = new LinkedList<>();
     }
 
     @Override
-    public void addPatient(Patient patient) {
+    public void addPatient(Person patient) {
         if (!patientsWaitroom.contains(patient)) {
             patientsWaitroom.add(patient);
         } else {
@@ -27,12 +27,12 @@ class WaitingRoom implements IWaitingRoomOperations {
     }
 
     @Override
-    public void removePatient(Patient patient) {
+    public void removePatient(Person patient) {
         patientsWaitroom.remove(patient);
     }
 
     @Override
-    public Patient doTreatment() {
+    public Person doTreatment() {
         if (!patientsWaitroom.isEmpty()) {
             behandelt = patientsWaitroom.poll();
             return behandelt;
@@ -41,7 +41,7 @@ class WaitingRoom implements IWaitingRoomOperations {
         }
     }
 
-    public Queue<Patient> getPatients() {
+    public Queue<Person> getPersons() {
         return patientsWaitroom;
     }
     

@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import user.Patient;
+import user.*;
 
 // Declare the Controller class
 public class Controller {
@@ -23,10 +23,10 @@ public class Controller {
 	public Controller(MyView view) {
 		// Initialize the main view and waiting room
 		this.view = view;
-		this.waitingRoom = new WaitingRoom();
+		waitingRoom = new WaitingRoom();
 		
 		// Initialize the patients list
-		this.patients = new ArrayList<>();
+		patients = new ArrayList<>();
 		// Create two example patients for testing
 		Patient patient1 = new Patient("John Doe", 30, "john.doe@example.com", "Musterstrasse 1", "12", "0152565581", "A000000001", "TK", "Hemorrhoids", "10:00", patients.size()+1);
 		patients.add(patient1);
@@ -120,23 +120,35 @@ public class Controller {
         @Override
         public void actionPerformed(ActionEvent e) {
         	//save name of patient getting treatment for message dialog
-        	String patname = waitingRoom.getPatients().peek().getName();
+        	String patname = waitingRoom.getPersons().peek().getName();
         	// Remove a patient from the waiting room and display. Simulate a random outcome of the treatment
         	
-        	Patient behandelt = waitingRoom.doTreatment();
+        	Person behandelt = waitingRoom.doTreatment();
         	if (behandelt != null) {
         		waitingAnzeige.removePatient(behandelt);
                 
+        		
+        		//Randomize treatment outcome behaviour
                 Random random = new Random();
                 int chance = random.nextInt(100);
                 
                 if (chance < 20) {
                 	// If the random number is less than 90, simulate an unsuccessful treatment
-                	JOptionPane.showMessageDialog(null, patname + " has died.\nDestroying evidence.", "Warning", JOptionPane.INFORMATION_MESSAGE);
+                	JOptionPane.showMessageDialog(view, patname + " has died.\nDestroying evidence.", "Warning", JOptionPane.INFORMATION_MESSAGE);
                 	
-                	// Delete the patient's details from the view and the patient list
-                	view.removePatient(behandelt.getPatientId()-1);                               
-                	patients.remove(behandelt.getPatientId()-1);
+                	if (behandelt instanceof Patient) {
+                        // If the object is an instance of Patient, cast it to Patient and
+                       	// Delete the patient's details from the view and the patient list
+                		Patient patient = (Patient) behandelt;
+                		view.removePatient(behandelt);                               
+                    	patients.remove(patient.getPatientId()-1);
+                	} 
+                	else {
+                	//Implementation for different instances	
+                	}
+                	
+ 
+
                 	
                 } else {
                 	// If the random number is greater than or equal to 90, simulate a successful treatment

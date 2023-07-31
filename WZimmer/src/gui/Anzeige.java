@@ -5,7 +5,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
-import user.Patient;
+import user.*;
 
 import java.awt.*;
 import java.time.LocalTime;
@@ -74,7 +74,7 @@ class Anzeige extends JFrame implements IAnzeigeOperations {
     
     
     @Override
-    public void addPatient(Patient patient) {
+    public void addPatient(Person patient) {
         // aktuelle Zeit, wird angegeben
         LocalTime currentTime = LocalTime.now();
         String currentHour = String.format("%02d", currentTime.getHour());
@@ -85,7 +85,7 @@ class Anzeige extends JFrame implements IAnzeigeOperations {
     }
 
     @Override
-    public void removePatient(Patient patient) {
+    public void removePatient(Person patient) {
         tableModel.removeRow(0);
     }
 
