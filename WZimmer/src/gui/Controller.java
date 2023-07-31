@@ -174,9 +174,7 @@ public class Controller {
 
 				// Aktualisiere die Anzahl der aktuell wartenden Patienten
 				if (waitingAnzeige != null) {
-					JPanel waitPanel = waitingAnzeige.getWaitPanel();
-					JLabel waitingLabel = (JLabel) waitPanel.getComponent(0);
-					waitingLabel.setText("Derzeit Wartende: " + waitingAnzeige.getRows());
+					waitingAnzeige.refreshDisplay();
 				}
 
 			} else {
@@ -209,10 +207,7 @@ public class Controller {
 
 				// Aktualisiere die Anzeige des Wartezimmers mit den Patienten im Wartezimmer
 				waitingAnzeige.addPatient(selectedPatient);
-
-				JPanel waitPanel = waitingAnzeige.getWaitPanel();
-				JLabel waitingLabel = (JLabel) waitPanel.getComponent(0);
-				waitingLabel.setText("Derzeit Wartende: " + waitingAnzeige.getRows());
+				waitingAnzeige.refreshDisplay();
 
 			} else {
 				JOptionPane.showMessageDialog(view, "Bitte wählen Sie einen Patienten aus.", "Warnung",

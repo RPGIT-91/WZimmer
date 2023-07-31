@@ -63,7 +63,7 @@ class Anzeige extends JFrame implements IAnzeigeOperations {
 
 		waitPanel = new JPanel(new GridLayout(1, 2));
 
-		waitPanel.add(new JLabel("Aktuell Wartend: " + table.getRowCount()));
+		waitPanel.add(new JLabel("Personen am Warten: " + table.getRowCount()));
 
 		// Setze das Layout auf BorderLayout
 		setLayout(new BorderLayout());
@@ -91,7 +91,6 @@ class Anzeige extends JFrame implements IAnzeigeOperations {
 		tableModel.removeRow(0);
 	}
 
-	@Override
 	public JPanel getWaitPanel() {
 		return waitPanel;
 	}
@@ -99,6 +98,13 @@ class Anzeige extends JFrame implements IAnzeigeOperations {
 	@Override
 	public int getRows() {
 		return table.getRowCount();
+	}
+	
+	@Override
+	public void refreshDisplay() {
+		JLabel waitingLabel = (JLabel) waitPanel.getComponent(0);
+		
+		waitingLabel.setText("Personen am Warten: " + table.getRowCount());
 	}
 
 }
