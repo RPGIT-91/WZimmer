@@ -1,538 +1,485 @@
-package gui;
+/*
+ * Dies ist die "MyView"-Klasse, die eine GUI (grafische Benutzeroberfläche) für das Verwalten von Patientendaten erstellt.
+ * Diese Klasse erbt von JFrame und implementiert das ICommonOperations-Interface.
+ * Sie enthält verschiedene Methoden zum Hinzufügen, Entfernen und Bearbeiten von Patientendaten.
+ * Die GUI zeigt eine Tabelle mit Patientendaten an und bietet Buttons für verschiedene Aktionen.
+ */
 
-//Class to configure the start screen "Patients"
+package gui;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.util.function.Consumer;
 import user.*;
-
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.time.LocalTime;
 
-//This class extends JFrame, which means it represents a window that can be opened on the desktop.
-public class MyView extends JFrame implements ICommonOperations{
- // These are the class's fields. Each instance of MyView will have its own copy of these.
- private static final long serialVersionUID = 107214543984441388L;
+public class MyView extends JFrame implements ICommonOperations {
+	private static final long serialVersionUID = 107214543984441388L;
 	private DefaultTableModel tableModel;
- private JTable table;
- private JButton addButton;
- private JButton editButton;
- private JButton viewButton;
- private JButton actionButton;
- private JButton addToWaitListButton;
-
-
- public MyView() {
-     // Set the title of the window to "Patients"
-     setTitle("Patients");
-     // Set the default close operation. In this case, the application will exit when the window is closed.
-     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-     // Set the size of the window to 1280x720 pixels.
-     setSize(1280, 720);
-
-     // The following code centers the window
-     setLocationRelativeTo(null);
-
-     // Make the window visible.
-     setVisible(true);
- 
-
-     // Create a new DefaultTableModel, which is the data model for a JTable.
-     tableModel = new DefaultTableModel() {
-         private static final long serialVersionUID = 7613152197870578936L;
-
-         public boolean isCellEditable(int row, int column) {
-             // This method overrides the default isCellEditable method to prevent cells from being edited.
-             return false;
-         }
-     };
-
-     // Add columns to the table model with the following names.
-     tableModel.addColumn("Name");
-     tableModel.addColumn("Age");
-     tableModel.addColumn("Contact Details");
-     tableModel.addColumn("Insurance no");
-     tableModel.addColumn("Medical History");
-     tableModel.addColumn("Time");
-
-     // Create a new JTable using the previously created table model.
-     table = new JTable(tableModel);
-
-     // Set the font and size of the table header.
-     JTableHeader tableHeader = table.getTableHeader();
-     Font headerFont = new Font("Verdana", Font.BOLD, 25);
-     tableHeader.setFont(headerFont);
-     tableHeader.setPreferredSize(new Dimension(tableHeader.getWidth(),50));
-
-     // Set the font and size of the table rows.
-     table.setFont(new Font("Serif", Font.PLAIN, 20));
-     table.setRowHeight(table.getRowHeight()+ 10);
-
-     // Create a JScrollPane containing the table. This allows the table to be scrolled.
-     JScrollPane scrollPane = new JScrollPane(table);
-
-     // Create buttons with the following labels.
-     addButton = new JButton("Add Patient");
-     editButton = new JButton("Edit Patient");
-     viewButton = new JButton("View Details");
-     actionButton = new JButton("Behandlung Abschliessen");
-     addToWaitListButton = new JButton("Add to Waitlist");
-
-
-     // Create a JPanel to hold the buttons. This panel uses a FlowLayout, which arranges components in a directional flow.
-     JPanel buttonPanel = new JPanel(new FlowLayout());
-     // Add the buttons to the panel.
-     buttonPanel.add(addButton);
-     buttonPanel.add(editButton);
-     buttonPanel.add(viewButton);
-     buttonPanel.add(actionButton);
-     buttonPanel.add(addToWaitListButton);
-
-
-     // Set the layout manager of the window to BorderLayout, which arranges components to fit in five regions: north, south, east, west, and center.
-     setLayout(new BorderLayout());
-     // Add the scroll pane (containing the table) to the center region of the window.
-     add(scrollPane, BorderLayout.CENTER);
-     // Add the button panel to the south region of the window.
-     add(buttonPanel, BorderLayout.SOUTH);
-     
-     // Make the window visible.
-     setVisible(true);
- }
-
-
-
-    
-//Method to add a Patient object to the table model.
-public void addPatient(Person person) {
-  // Add a row to the table model using the patient's name, age, and appointment time.
-	if (person instanceof Patient) {
-        // If the object is an instance of Patient, cast it to Patient and add the row accordingly.
-        Patient patient = (Patient) person;
-        tableModel.addRow(new Object[]{patient.getName(), patient.getAge(), patient.getContactDetails(), patient.getInsuranceNo(), patient.getMedicalHistory(), patient.getAppointmentTime()});
-    } else {
-        // Handle other subclasses of Person here, if needed.
-        // For example, if you have a StaffMember subclass, you can add specific handling for it.
-    }}
-
-//Method to remove a Patient object from the table model.
-public void removePatient(Person person) {
-	if (person instanceof Patient) {
-        // If the object is an instance of Patient, cast it to Patient and add the row accordingly.
-		Patient patient = (Patient) person;
-		int patientID = patient.getPatientId()-1;
-		tableModel.removeRow(patientID);    } 
-	else {
-        // Handle other subclasses of Person here, if needed.
-        // For example, if you have a StaffMember subclass, you can add specific handling for it.
-    }
-  // Remove a row from the table model using the patient's ID.
-
-}
-
-//Methods to add action listeners to the buttons.
-//An action listener performs an action when the corresponding button is clicked.
-public void addAddPatientListener(ActionListener listener) {
-  addButton.addActionListener(listener);
-}
-
-public void addEditPatientListener(ActionListener listener) {
-  editButton.addActionListener(listener);
-}
-
-public void addViewDetailsListener(ActionListener listener) {
-  viewButton.addActionListener(listener);
-}
- 
-public void addBehandlungListener(ActionListener listener) {
-  actionButton.addActionListener(listener);
-}
-
-public void addToWaitListListener(ActionListener listener) {
-  addToWaitListButton.addActionListener(listener);
-}
-
-
-  
-//Helper method to get the index of the currently selected row in the table.
-public int getSelectedRowIndex() {
-  return table.getSelectedRow();
-}
-
-//Method to add a new patient to the system, this opens a new JFrame where user can input patient details
-public Patient addPatientNew(int id, Consumer<Patient> callback) {
-  // Fetch the current time.
-  String currentHour = String.format("%02d", LocalTime.now().getHour());
-  String currentMinute = String.format("%02d", LocalTime.now().getMinute());
-  String currentTimeText = currentHour + ":" + currentMinute;
-  
-  // Create a new JFrame to collect patient details.
-  JFrame patientInfoFrame = new JFrame("Neuanlage Patient");
-  JPanel infoPanel = new JPanel(new GridBagLayout());
-
-  // Setup constraints for the layout.
-  GridBagConstraints gbc = new GridBagConstraints();
-  gbc.anchor = GridBagConstraints.WEST;
-  gbc.insets = new Insets(5, 10, 5, 10);
-
-  // Initialize the text fields.
-  JTextField patName = new JTextField();
-  JTextField patAge = new JTextField();
-  JTextField patContDeta = new JTextField();
-  JTextField patAdress = new JTextField();
-  JTextField patPLZ = new JTextField();
-  JTextField patTelephone = new JTextField();
-  JTextField patMedical = new JTextField();
-  JTextField patInsuranceNo = new JTextField();
-  JTextField patInsuranceInstitute = new JTextField();
-  JTextField patTime = new JTextField(currentTimeText);
-  JTextField patPatientId = new JTextField(Integer.toString(id));
-  
-  // Add these fields to the info panel.
-  addFormField(infoPanel, "Name:", patName);
-  addFormField(infoPanel, "Age:", patAge);
-  addFormField(infoPanel, "Contact Information:", patContDeta);
-  addFormField(infoPanel, "Adress:", patAdress);
-  addFormField(infoPanel, "PLZ:", patPLZ);
-  addFormField(infoPanel, "Telephone:", patTelephone);
-  addFormField(infoPanel, "Medical History:", patMedical);
-  addFormField(infoPanel, "Insurance No:", patInsuranceNo);
-  addFormField(infoPanel, "Insurance Institute:", patInsuranceInstitute);
-  addFormField(infoPanel, "Appointment Time:", patTime);
-  addFormField(infoPanel, "Patient ID:", patPatientId);
-  
-  // Create the buttons.
-  JButton saveButton = new JButton("Save");
-  JButton cancelButton = new JButton("Cancel");
-
-  // Panel to hold the buttons.
-  JPanel buttonPanel = new JPanel(new FlowLayout());
-  buttonPanel.add(saveButton);
-  buttonPanel.add(cancelButton);
-  
-  Patient patientToAdd = new Patient();
-
-  // Listener for the Save button.
-  saveButton.addActionListener(e -> {
-      // Check if the Age field is not empty and parse it to an integer, if it fails, default to 0.
-      int alterInt;
-      String alterString = patAge.getText();
-      if (!alterString.isEmpty()) {
-          try {
-              alterInt = Integer.parseInt(alterString);
-          } catch (NumberFormatException f) {
-              alterInt = 0;
-          }
-      } else {
-          alterInt = 0;
-      };
-      
-      // Set patientToAdd fields with the information from the text fields.
-      patientToAdd.setName(patName.getText());
-      patientToAdd.setAge(alterInt);
-      patientToAdd.setContactDetails(patContDeta.getText());
-      patientToAdd.setAdress(patAdress.getText());
-      patientToAdd.setPlz(patPLZ.getText());
-      patientToAdd.setTelephone(patTelephone.getText());
-      patientToAdd.setMedicalHistory(patMedical.getText());
-      patientToAdd.setInsuranceNo(patInsuranceNo.getText());
-      patientToAdd.setInsuranceInstitute(patInsuranceInstitute.getText());
-      patientToAdd.setAppointmentTime(patTime.getText());
-      patientToAdd.setPatientId(id);
-
-      // Close the dialog after saving the data.
-      patientInfoFrame.dispose();
-
-      // Call the callback function with the patientToAdd object.
-      callback.accept(patientToAdd);
-  });
-
-  // Listener for the Cancel button.
-  cancelButton.addActionListener(e -> {
-      // Close the dialog without saving any data.
-      patientInfoFrame.dispose();
-
-      // Call the callback function with the patientToAdd object.
-      callback.accept(patientToAdd);
-  });
-  
-
-  // Panel to hold the main content and the buttons.
-  JPanel mainPanel = new JPanel(new BorderLayout());
-  mainPanel.add(infoPanel, BorderLayout.CENTER);
-  mainPanel.add(buttonPanel, BorderLayout.SOUTH);
-  
-  // Set the preferred width for the JFrame.
-  int preferredWidth = 600; // Adjust this value to your desired width.
-  patientInfoFrame.setPreferredSize(new Dimension(preferredWidth, 460));
-
-  // Load all of the mainPanel information into the patientInfoFrame.
-  patientInfoFrame.add(mainPanel);
-  patientInfoFrame.pack();
-  patientInfoFrame.setLocationRelativeTo(null);
-  patientInfoFrame.setVisible(true);
- 
-  // Return the edited object within the save action listener.
-  return patientToAdd;
-  }
-
-
-
-
-
-
-
-
-
-public void editPatientInfo(Patient patient, Consumer<Patient> callback) {
-
-    // Create a new JFrame to collect patient details.
-    JFrame patientInfoFrame = new JFrame("Edit Patient Information");
-    JPanel infoPanel = new JPanel(new GridBagLayout());
-
-    // Setup constraints for the layout.
-    GridBagConstraints gbc = new GridBagConstraints();
-    gbc.anchor = GridBagConstraints.WEST;
-    gbc.insets = new Insets(5, 10, 5, 10);
-
-    // Define text fields for each attribute of the Patient object. The text fields are initialized with the corresponding patient information.
-    JTextField patName = new JTextField(patient.getName());
-    JTextField patAge = new JTextField(String.valueOf(patient.getAge()));
-    JTextField patContDeta = new JTextField(patient.getContactDetails());
-    JTextField patAdress = new JTextField(patient.getAdress());
-    JTextField patPLZ = new JTextField(String.valueOf(patient.getPlz()));
-    JTextField patTelephone = new JTextField(String.valueOf(patient.getTelephone()));
-    JTextField patMedical = new JTextField(patient.getMedicalHistory());
-    JTextField patInsuranceNo = new JTextField(patient.getInsuranceNo());
-    JTextField patInsuranceInstitute = new JTextField(patient.getInsuranceInstitute());
-    JTextField patTime = new JTextField(patient.getAppointmentTime());
-    JTextField patPatientId = new JTextField(String.valueOf(patient.getPatientId()));
-
-    // Add these fields to the info panel.
-    addFormField(infoPanel, "Name:", patName);
-    addFormField(infoPanel, "Age:", patAge);
-    addFormField(infoPanel, "Contact Information:", patContDeta);
-    addFormField(infoPanel, "Adress:", patAdress);
-    addFormField(infoPanel, "PLZ:", patPLZ);
-    addFormField(infoPanel, "Telephone:", patTelephone);
-    addFormField(infoPanel, "Medical History:", patMedical);
-    addFormField(infoPanel, "Insurance No:", patInsuranceNo);
-    addFormField(infoPanel, "Insurance Institute:", patInsuranceInstitute);
-    addFormField(infoPanel, "Appointment Time:", patTime);
-    addFormField(infoPanel, "Patient ID:", patPatientId);
-
-    // Create the Save and Cancel buttons.
-    JButton saveButton = new JButton("Save");
-    JButton cancelButton = new JButton("Cancel");
-
-    // Panel to hold the buttons.
-    JPanel buttonPanel = new JPanel(new FlowLayout());
-    buttonPanel.add(saveButton);
-    buttonPanel.add(cancelButton);
-
-    // Listener for the Save button.
-    saveButton.addActionListener(e -> {
-        // Check if the Age field is not empty and parse it to an integer, if it fails, default to 0.
-        int alterInt;
-        String alterString = patAge.getText();
-        if (!alterString.isEmpty()) {
-            try {
-                alterInt = Integer.parseInt(alterString);
-            } catch (NumberFormatException f) {
-                alterInt = 0;
-            }
-        } else {
-            alterInt = 0;
-        }
-
-        // Update the fields of the existing patient object with the information from the text fields.
-        patient.setName(patName.getText());
-        patient.setAge(alterInt);
-        patient.setContactDetails(patContDeta.getText());
-        patient.setAdress(patAdress.getText());
-        patient.setPlz(patPLZ.getText());
-        patient.setTelephone(patTelephone.getText());
-        patient.setMedicalHistory(patMedical.getText());
-        patient.setInsuranceNo(patInsuranceNo.getText());
-        patient.setInsuranceInstitute(patInsuranceInstitute.getText());
-        patient.setAppointmentTime(patTime.getText());
-
-        // Close the dialog after saving the data.
-        patientInfoFrame.dispose();
-
-        // Call the callback function with the modified patient object.
-        callback.accept(patient);
-    });
-
-    // Listener for the Cancel button.
-    cancelButton.addActionListener(e -> {
-        // Close the dialog without saving any data.
-        patientInfoFrame.dispose();
-
-        // Call the callback function with the original patient object without any changes.
-        callback.accept(patient);
-    });
-
-    // Panel to hold the main content (infoPanel) and the buttons.
-    JPanel mainPanel = new JPanel(new BorderLayout());
-    mainPanel.add(infoPanel, BorderLayout.CENTER);
-    mainPanel.add(buttonPanel, BorderLayout.SOUTH);
-
-    // Set the preferred width for the JFrame.
-    int preferredWidth = 600; // Adjust this value to your desired width.
-    patientInfoFrame.setPreferredSize(new Dimension(preferredWidth, 460));
-
-    // Load all of the mainPanel information into the patientInfoFrame.
-    patientInfoFrame.add(mainPanel);
-    patientInfoFrame.pack();
-    patientInfoFrame.setLocationRelativeTo(null);
-    patientInfoFrame.setVisible(true);
-}
-
-
-
-
-
-
-
-
-//Method to update the patient, with the edited changes. 
-public void updatePatient(int rowIndex, Patient updatedPatient) {
-    // Get the number of columns in the table model.
-    int numColumns = tableModel.getColumnCount();
-
-    // Loop through each column in the row and update the corresponding data.
-    for (int colIndex = 0; colIndex < numColumns; colIndex++) {
-        // Get the value from the updatedPatient object based on the column index.
-        Object value;
-        switch (colIndex) {
-        case 0:
-            value = updatedPatient.getName();
-            break;
-        case 1:
-            value = updatedPatient.getAge();
-            break;
-        case 2:
-            value = updatedPatient.getContactDetails();
-            break;
-        case 3:
-            value = updatedPatient.getInsuranceNo();
-            break;
-        case 4:
-            value = updatedPatient.getMedicalHistory();
-            break;
-        case 5:
-            value = updatedPatient.getAppointmentTime();
-            break;
-        default:
-            value = null; // Handle additional columns if necessary.
-    }
-
-        // Update the value in the table model.
-        tableModel.setValueAt(value, rowIndex, colIndex);
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-//Here we define a method called "showPatientInfo". The method receives a Patient object as an argument.
-public void showPatientInfo(Patient patient) {
- // Create a new JFrame window with the title "Patient Information"
- JFrame patientInfoFrame = new JFrame("Patient Information");
- // Create a new JPanel with a GridBagLayout. This panel will contain the patient information.
- JPanel infoPanel = new JPanel(new GridBagLayout());
- // Create a GridBagConstraints object which defines constraints for components that are laid out using the GridBagLayout.
- GridBagConstraints gbc = new GridBagConstraints();
- // Set the anchor for the GridBagConstraints object to WEST. This means components will be anchored to the left side of their display area.
- gbc.anchor = GridBagConstraints.WEST;
- // Define the external padding of the components. The Insets specify the space that a component must leave at each of its edges. The space is measured in pixels.
- gbc.insets = new Insets(5, 10, 5, 10);
-
- // Define text fields for each attribute of the Patient object. The text fields are initialized with the corresponding patient information.
- JTextField patName = new JTextField(patient.getName());
- JTextField patAge = new JTextField(String.valueOf(patient.getAge()));
- JTextField patContDeta = new JTextField(patient.getContactDetails());
- JTextField patAdress = new JTextField(patient.getAdress());
- JTextField patPLZ = new JTextField(String.valueOf(patient.getPlz()));
- JTextField patTelephone = new JTextField(String.valueOf(patient.getTelephone()));
- JTextField patMedical = new JTextField(patient.getMedicalHistory());
- JTextField patInsuranceNo = new JTextField(patient.getInsuranceNo());
- JTextField patInsuranceInstitute = new JTextField(patient.getInsuranceInstitute());
- JTextField patTime = new JTextField(patient.getAppointmentTime());
- JTextField patPatientId = new JTextField(String.valueOf(patient.getPatientId()));
-
- // Make all the text fields non-editable. This is typically done for display-only fields.
- patName.setEditable(false);
- patAge.setEditable(false);
- patContDeta.setEditable(false);
- patAdress.setEditable(false);
- patPLZ.setEditable(false);
- patTelephone.setEditable(false);
- patMedical.setEditable(false);
- patInsuranceNo.setEditable(false);
- patInsuranceInstitute.setEditable(false);
- patTime.setEditable(false);
- patPatientId.setEditable(false);
-
- // Add the fields and labels to the infoPanel using the helper method "addFormField"
- addFormField(infoPanel, "Name:", patName);
- addFormField(infoPanel, "Age:", patAge);
- addFormField(infoPanel, "Contact Information:", patContDeta);
- addFormField(infoPanel, "Adress:", patAdress);
- addFormField(infoPanel, "PLZ:", patPLZ);
- addFormField(infoPanel, "Telephone:", patTelephone);
- addFormField(infoPanel, "Medical History:", patMedical);
- addFormField(infoPanel, "Insurance No:", patInsuranceNo);
- addFormField(infoPanel, "Insurance Institute:", patInsuranceInstitute);
- addFormField(infoPanel, "Appointment Time:", patTime);
- addFormField(infoPanel, "Patient ID:", patPatientId);
-
- // Set the preferred width for the JFrame
- int preferredWidth = 600; // Adjust this value to your desired width
- patientInfoFrame.setPreferredSize(new Dimension(preferredWidth, 420));
-
- // Add the infoPanel to the patientInfoFrame. This includes all of the labels and text fields.
- patientInfoFrame.add(infoPanel);
- // Pack the components within the JFrame. This means sizes will be calculated to display the components as neatly as possible.
- patientInfoFrame.pack();
- // Set the location of the JFrame to the center of the screen.
- patientInfoFrame.setLocationRelativeTo(null);
- // Make the JFrame visible.
- patientInfoFrame.setVisible(true);
-}
-
-//Define a helper method that adds a text field and its corresponding label to a panel with GridBagLayout.
-private void addFormField(JPanel panel, String label, JTextField textField) {
- // Create a GridBagConstraints object.
- GridBagConstraints gbc = new GridBagConstraints();
- // Set the anchor for the GridBagConstraints object to WEST.
- gbc.anchor = GridBagConstraints.WEST;
- // Define the external padding of the components.
- gbc.insets = new Insets(5, 10, 5, 10);
- // Set the gridx and gridy fields. These specify the cell in the layout grid where the top-left corner of the component is to be placed.
- gbc.gridx = 0;
- gbc.gridy = panel.getComponentCount();
- // Add the label to the panel.
- panel.add(new JLabel(label), gbc);
-
- // Move to the next cell in the layout grid.
- gbc.gridx = 1;
- // Set the fill field to HORIZONTAL. This means that the component's display area will be made wide enough to fill its display area horizontally, but not vertically.
- gbc.fill = GridBagConstraints.HORIZONTAL;
- // Set the weightx field to 1.0. This determines how much extra horizontal space is allocated to the component.
- gbc.weightx = 1.0;
- // Add the text field to the panel.
- panel.add(textField, gbc);
+	private JTable table;
+	private JButton addButton;
+	private JButton editButton;
+	private JButton viewButton;
+	private JButton actionButton;
+	private JButton addToWaitListButton;
+
+	public MyView() {
+		// Fensterkonfiguration
+		setTitle("Patienten");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(1280, 720);
+		setLocationRelativeTo(null);
+		setVisible(true);
+
+		// Datenmodell für die Tabelle erstellen
+		tableModel = new DefaultTableModel() {
+			private static final long serialVersionUID = 7613152197870578936L;
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+
+		// Spalten zur Tabelle hinzufügen
+		tableModel.addColumn("Name");
+		tableModel.addColumn("Alter");
+		tableModel.addColumn("E-Mail");
+		tableModel.addColumn("Versich. Nr.");
+		tableModel.addColumn("Vorkrankheiten");
+		tableModel.addColumn("Termin");
+
+		// Tabelle mit dem Datenmodell erstellen
+		table = new JTable(tableModel);
+		JTableHeader tableHeader = table.getTableHeader();
+		Font headerFont = new Font("Verdana", Font.BOLD, 25);
+		tableHeader.setFont(headerFont);
+		tableHeader.setPreferredSize(new Dimension(tableHeader.getWidth(), 50));
+		table.setFont(new Font("Serif", Font.PLAIN, 20));
+		table.setRowHeight(table.getRowHeight() + 10);
+		JScrollPane scrollPane = new JScrollPane(table);
+
+		// Buttons erstellen
+		addButton = new JButton("Patient hinzufügen");
+		editButton = new JButton("Patient bearbeiten");
+		viewButton = new JButton("Details anzeigen");
+		actionButton = new JButton("Behandlung abschließen");
+		addToWaitListButton = new JButton("Zur Warteliste hinzufügen");
+
+		// Panel für Buttons erstellen
+		JPanel buttonPanel = new JPanel(new FlowLayout());
+		buttonPanel.add(addButton);
+		buttonPanel.add(editButton);
+		buttonPanel.add(viewButton);
+		buttonPanel.add(actionButton);
+		buttonPanel.add(addToWaitListButton);
+
+		// Layout-Manager des Fensters auf BorderLayout setzen
+		setLayout(new BorderLayout());
+		// ScrollPane (mit der Tabelle) in den Center-Bereich des Fensters hinzufügen
+		add(scrollPane, BorderLayout.CENTER);
+		// Button-Panel in den South-Bereich des Fensters hinzufügen
+		add(buttonPanel, BorderLayout.SOUTH);
+
+		setVisible(true);
+	}
+
+	// Methode zum Hinzufügen eines Patienten zur Tabelle
+	@Override
+	public void addPatient(Person person) {
+		if (person instanceof Patient) {
+			Patient patient = (Patient) person;
+			tableModel.addRow(new Object[] { patient.getName(), patient.getAge(), patient.getContactDetails(),
+					patient.getInsuranceNo(), patient.getMedicalHistory(), patient.getAppointmentTime() });
+		} else {
+			// Hier können andere Unterklassen von Person behandelt werden, falls erforderlich.
+		}
+	}
+
+	// Methode zum Entfernen eines Patienten aus der Tabelle
+	@Override
+	public void removePatient(Person person) {
+		if (person instanceof Patient) {
+			Patient patient = (Patient) person;
+			int patientID = patient.getPatientId() - 1;
+			tableModel.removeRow(patientID);
+		} else {
+			// Hier können andere Unterklassen von Person behandelt werden, falls erforderlich.
+		}
+	}
+
+	// Methoden zum Hinzufügen von ActionListenern zu den Buttons
+	public void addAddPatientListener(ActionListener listener) {
+		addButton.addActionListener(listener);
+	}
+
+	public void addEditPatientListener(ActionListener listener) {
+		editButton.addActionListener(listener);
+	}
+
+	public void addViewDetailsListener(ActionListener listener) {
+		viewButton.addActionListener(listener);
+	}
+
+	public void addBehandlungListener(ActionListener listener) {
+		actionButton.addActionListener(listener);
+	}
+
+	public void addToWaitListListener(ActionListener listener) {
+		addToWaitListButton.addActionListener(listener);
+	}
+
+	// Methode zum Abrufen des ausgewählten Zeilenindexes in der Tabelle
+	public int getSelectedRowIndex() {
+		return table.getSelectedRow();
+	}
+
+	// Methode zum Hinzufügen eines neuen Patienten mit Eingabefeldern
+	public Patient addPatientNew(int id, Consumer<Patient> callback) {
+		// Aktuelle Uhrzeit abrufen
+		String currentHour = String.format("%02d", LocalTime.now().getHour());
+		String currentMinute = String.format("%02d", LocalTime.now().getMinute());
+		String currentTimeText = currentHour + ":" + currentMinute;
+
+		// Neue JFrame erstellen, um Patientendetails einzugeben
+		JFrame patientInfoFrame = new JFrame("Neuanlage Patient");
+		JPanel infoPanel = new JPanel(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.anchor = GridBagConstraints.WEST;
+		gbc.insets = new Insets(5, 10, 5, 10);
+
+		// Textfelder für die Patientendetails erstellen
+		JTextField patName = new JTextField();
+		JTextField patAge = new JTextField();
+		JTextField patContDeta = new JTextField();
+		JTextField patAdress = new JTextField();
+		JTextField patPLZ = new JTextField();
+		JTextField patTelephone = new JTextField();
+		JTextField patMedical = new JTextField();
+		JTextField patInsuranceNo = new JTextField();
+		JTextField patInsuranceInstitute = new JTextField();
+		JTextField patTime = new JTextField(currentTimeText);
+		JTextField patPatientId = new JTextField(Integer.toString(id));
+
+		// Felder und Labels dem infoPanel hinzufügen
+		addFormField(infoPanel, "Name:", patName);
+		addFormField(infoPanel, "Alter:", patAge);
+		addFormField(infoPanel, "Kontaktdetails:", patContDeta);
+		addFormField(infoPanel, "Adresse:", patAdress);
+		addFormField(infoPanel, "PLZ:", patPLZ);
+		addFormField(infoPanel, "Telefon:", patTelephone);
+		addFormField(infoPanel, "Vorkrankheiten:", patMedical);
+		addFormField(infoPanel, "Versicherungsnummer:", patInsuranceNo);
+		addFormField(infoPanel, "Versicherungsinstitut:", patInsuranceInstitute);
+		addFormField(infoPanel, "Terminzeitpunkt:", patTime);
+		addFormField(infoPanel, "Patienten-ID:", patPatientId);
+		// Buttons "Speichern" und "Abbrechen" erstellen
+		JButton saveButton = new JButton("Speichern");
+		JButton cancelButton = new JButton("Abbrechen");
+
+		// Panel für die Buttons erstellen
+		JPanel buttonPanel = new JPanel(new FlowLayout());
+		buttonPanel.add(saveButton);
+		buttonPanel.add(cancelButton);
+
+		// Neues Patientenobjekt für die Eingaben erstellen
+		Patient patientToAdd = new Patient();
+
+		// ActionListener für den "Speichern"-Button hinzufügen
+		saveButton.addActionListener(e -> {
+			// Alter des Patienten aus dem Textfeld abrufen und zu einem Integer parsen, falls möglich
+			int alterInt;
+			String alterString = patAge.getText();
+			if (!alterString.isEmpty()) {
+				try {
+					alterInt = Integer.parseInt(alterString);
+				} catch (NumberFormatException f) {
+					alterInt = 0;
+				}
+			} else {
+				alterInt = 0;
+			}
+
+			// Die Eingaben in das Patientenobjekt übertragen
+			patientToAdd.setName(patName.getText());
+			patientToAdd.setAge(alterInt);
+			patientToAdd.setContactDetails(patContDeta.getText());
+			patientToAdd.setAdress(patAdress.getText());
+			patientToAdd.setPlz(patPLZ.getText());
+			patientToAdd.setTelephone(patTelephone.getText());
+			patientToAdd.setMedicalHistory(patMedical.getText());
+			patientToAdd.setInsuranceNo(patInsuranceNo.getText());
+			patientToAdd.setInsuranceInstitute(patInsuranceInstitute.getText());
+			patientToAdd.setAppointmentTime(patTime.getText());
+			patientToAdd.setPatientId(id);
+
+			// Das Dialogfenster nach dem Speichern schließen
+			patientInfoFrame.dispose();
+
+			// Das Callback ausführen und das erstellte Patientenobjekt übergeben
+			callback.accept(patientToAdd);
+		});
+
+		// ActionListener für den "Abbrechen"-Button hinzufügen
+		cancelButton.addActionListener(e -> {
+			// Das Dialogfenster ohne Speichern schließen
+			patientInfoFrame.dispose();
+
+			// Das Callback ausführen und das leere Patientenobjekt übergeben
+			callback.accept(patientToAdd);
+		});
+
+		// Panel für den Hauptinhalt und die Buttons erstellen
+		JPanel mainPanel = new JPanel(new BorderLayout());
+		mainPanel.add(infoPanel, BorderLayout.CENTER);
+		mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+		// Die bevorzugte Breite für die JFrame festlegen
+		int preferredWidth = 600; // Hier je nach gewünschter Breite anpassen
+		patientInfoFrame.setPreferredSize(new Dimension(preferredWidth, 460));
+
+		// Den Hauptinhalt in das Dialogfenster "patientInfoFrame" laden
+		patientInfoFrame.add(mainPanel);
+		patientInfoFrame.pack();
+		patientInfoFrame.setLocationRelativeTo(null);
+		patientInfoFrame.setVisible(true);
+
+		// Das bearbeitete Objekt im "Speichern"-ActionListener zurückgeben
+		return patientToAdd;
+	}
+
+	// Methode zum Bearbeiten der Patienteninformationen
+	public void editPatientInfo(Patient patient, Consumer<Patient> callback) {
+		// Neues JFrame erstellen, um die Patientendetails zu bearbeiten
+		JFrame patientInfoFrame = new JFrame("Patienteninformationen bearbeiten");
+		JPanel infoPanel = new JPanel(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.anchor = GridBagConstraints.WEST;
+		gbc.insets = new Insets(5, 10, 5, 10);
+
+		// Textfelder für die Patientendetails erstellen und mit den entsprechenden Informationen füllen
+		JTextField patName = new JTextField(patient.getName());
+		JTextField patAge = new JTextField(String.valueOf(patient.getAge()));
+		JTextField patContDeta = new JTextField(patient.getContactDetails());
+		JTextField patAdress = new JTextField(patient.getAdress());
+		JTextField patPLZ = new JTextField(String.valueOf(patient.getPlz()));
+		JTextField patTelephone = new JTextField(String.valueOf(patient.getTelephone()));
+		JTextField patMedical = new JTextField(patient.getMedicalHistory());
+		JTextField patInsuranceNo = new JTextField(patient.getInsuranceNo());
+		JTextField patInsuranceInstitute = new JTextField(patient.getInsuranceInstitute());
+		JTextField patTime = new JTextField(patient.getAppointmentTime());
+		JTextField patPatientId = new JTextField(String.valueOf(patient.getPatientId()));
+
+		// nur PatientenID nicht editierbar machen (nur Anzeige)
+		patPatientId.setEditable(false);
+
+		// Felder und Labels dem infoPanel hinzufügen
+		addFormField(infoPanel, "Name:", patName);
+		addFormField(infoPanel, "Alter:", patAge);
+		addFormField(infoPanel, "E-Mail:", patContDeta);
+		addFormField(infoPanel, "Adresse:", patAdress);
+		addFormField(infoPanel, "PLZ:", patPLZ);
+		addFormField(infoPanel, "Telefon:", patTelephone);
+		addFormField(infoPanel, "Vorkrankheiten:", patMedical);
+		addFormField(infoPanel, "Versich. Nr.:", patInsuranceNo);
+		addFormField(infoPanel, "Versich. Insit.:", patInsuranceInstitute);
+		addFormField(infoPanel, "Termin:", patTime);
+		addFormField(infoPanel, "Patienten-ID:", patPatientId);
+
+		// Buttons "Speichern" und "Abbrechen" erstellen
+		JButton saveButton = new JButton("Speichern");
+		JButton cancelButton = new JButton("Abbrechen");
+
+		// Panel für die Buttons erstellen
+		JPanel buttonPanel = new JPanel(new FlowLayout());
+		buttonPanel.add(saveButton);
+		buttonPanel.add(cancelButton);
+
+		// ActionListener für den "Speichern"-Button hinzufügen
+		saveButton.addActionListener(e -> {
+			// Alter des Patienten aus dem Textfeld abrufen und zu einem Integer parsen, falls möglich
+			int alterInt;
+			String alterString = patAge.getText();
+			if (!alterString.isEmpty()) {
+				try {
+					alterInt = Integer.parseInt(alterString);
+				} catch (NumberFormatException f) {
+					alterInt = 0;
+				}
+			} else {
+				alterInt = 0;
+			}
+
+			// Die Eingaben in das Patientenobjekt übertragen
+			patient.setName(patName.getText());
+			patient.setAge(alterInt);
+			patient.setContactDetails(patContDeta.getText());
+			patient.setAdress(patAdress.getText());
+			patient.setPlz(patPLZ.getText());
+			patient.setTelephone(patTelephone.getText());
+			patient.setInsuranceNo(patInsuranceNo.getText());
+			patient.setInsuranceInstitute(patInsuranceInstitute.getText());
+			patient.setAppointmentTime(patTime.getText());
+			// Das Dialogfenster nach dem Speichern schließen
+			patientInfoFrame.dispose();
+
+			// Das Callback ausführen und das bearbeitete Patientenobjekt übergeben
+			callback.accept(patient);
+		});
+
+		// ActionListener für den "Abbrechen"-Button hinzufügen
+		cancelButton.addActionListener(e -> {
+			// Das Dialogfenster ohne Speichern schließen
+			patientInfoFrame.dispose();
+
+			// Das Callback ausführen und das ursprüngliche Patientenobjekt ohne Änderungen übergeben
+			callback.accept(patient);
+		});
+
+		// Panel für den Hauptinhalt und die Buttons erstellen
+		JPanel mainPanel = new JPanel(new BorderLayout());
+		mainPanel.add(infoPanel, BorderLayout.CENTER);
+		mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+		// Die bevorzugte Breite für die JFrame festlegen
+		int preferredWidth = 600; // Hier je nach gewünschter Breite anpassen
+		patientInfoFrame.setPreferredSize(new Dimension(preferredWidth, 460));
+
+		// Den Hauptinhalt in das Dialogfenster "patientInfoFrame" laden
+		patientInfoFrame.add(mainPanel);
+		patientInfoFrame.pack();
+		patientInfoFrame.setLocationRelativeTo(null);
+		patientInfoFrame.setVisible(true);
+	}
+
+	// Methode zum Aktualisieren des Patienten mit den bearbeiteten Änderungen
+	public void updatePatient(int rowIndex, Patient updatedPatient) {
+		// Anzahl der Spalten im Tabellenmodell abrufen
+		int numColumns = tableModel.getColumnCount();
+
+		// Schleife durch jede Spalte in der Zeile und die entsprechenden Daten aktualisieren
+		for (int colIndex = 0; colIndex < numColumns; colIndex++) {
+			// Wert aus dem aktualisierten Patientenobjekt basierend auf dem Spaltenindex abrufen
+			Object value;
+			switch (colIndex) {
+			case 0:
+				value = updatedPatient.getName();
+				break;
+			case 1:
+				value = updatedPatient.getAge();
+				break;
+			case 2:
+				value = updatedPatient.getContactDetails();
+				break;
+			case 3:
+				value = updatedPatient.getInsuranceNo();
+				break;
+			case 4:
+				value = updatedPatient.getMedicalHistory();
+				break;
+			case 5:
+				value = updatedPatient.getAppointmentTime();
+				break;
+			default:
+				value = null; // Bei Bedarf zusätzliche Spalten behandeln
+			}
+
+			// Wert im Tabellenmodell aktualisieren
+			tableModel.setValueAt(value, rowIndex, colIndex);
+		}
+	}
+
+	// Methode zum Anzeigen der Patienteninformationen
+	public void showPatientInfo(Patient patient) {
+		// Neues JFrame-Fenster mit dem Titel "Patienteninformation" erstellen
+		JFrame patientInfoFrame = new JFrame("Patienteninformation");
+		// Neues JPanel mit GridBagLayout erstellen. Dieses Panel enthält die Patienteninformationen.
+		JPanel infoPanel = new JPanel(new GridBagLayout());
+		// Neues GridBagConstraints-Objekt erstellen, das die Einschränkungen für Komponenten festlegt, die mit GridBagLayout angeordnet werden.
+		GridBagConstraints gbc = new GridBagConstraints();
+		// Das Ankerfeld für das GridBagConstraints-Objekt auf WEST setzen. Dies bedeutet, dass Komponenten am linken Rand ihres Anzeigebereichs verankert werden.
+		gbc.anchor = GridBagConstraints.WEST;
+		// Die externen Abstände der Komponenten festlegen.
+		gbc.insets = new Insets(5, 10, 5, 10);
+
+		// Textfelder für jedes Attribut des Patientenobjekts erstellen und mit den entsprechenden Patienteninformationen initialisieren.
+		JTextField patName = new JTextField(patient.getName());
+		JTextField patAge = new JTextField(String.valueOf(patient.getAge()));
+		JTextField patContDeta = new JTextField(patient.getContactDetails());
+		JTextField patAdress = new JTextField(patient.getAdress());
+		JTextField patPLZ = new JTextField(String.valueOf(patient.getPlz()));
+		JTextField patTelephone = new JTextField(String.valueOf(patient.getTelephone()));
+		JTextField patMedical = new JTextField(patient.getMedicalHistory());
+		JTextField patInsuranceNo = new JTextField(patient.getInsuranceNo());
+		JTextField patInsuranceInstitute = new JTextField(patient.getInsuranceInstitute());
+		JTextField patTime = new JTextField(patient.getAppointmentTime());
+		JTextField patPatientId = new JTextField(String.valueOf(patient.getPatientId()));
+
+		// Alle Textfelder nicht editierbar machen (nur Anzeige)
+		patName.setEditable(false);
+		patAge.setEditable(false);
+		patContDeta.setEditable(false);
+		patAdress.setEditable(false);
+		patPLZ.setEditable(false);
+		patTelephone.setEditable(false);
+		patMedical.setEditable(false);
+		patInsuranceNo.setEditable(false);
+		patInsuranceInstitute.setEditable(false);
+		patTime.setEditable(false);
+		patPatientId.setEditable(false);
+
+		// Felder und Labels dem infoPanel hinzufügen, indem die Hilfsmethode "addFormField" verwendet wird.
+		addFormField(infoPanel, "Name:", patName);
+		addFormField(infoPanel, "Alter:", patAge);
+		addFormField(infoPanel, "E-Mail:", patContDeta);
+		addFormField(infoPanel, "Adresse:", patAdress);
+		addFormField(infoPanel, "PLZ:", patPLZ);
+		addFormField(infoPanel, "Telefon:", patTelephone);
+		addFormField(infoPanel, "Vorkrankheiten:", patMedical);
+		addFormField(infoPanel, "Versich. Nr.:", patInsuranceNo);
+		addFormField(infoPanel, "Versich. Insit.:", patInsuranceInstitute);
+		addFormField(infoPanel, "Termin:", patTime);
+		addFormField(infoPanel, "Patienten-ID:", patPatientId);
+
+
+		// Panel für den Hauptinhalt und den "OK"-Button erstellen
+		JPanel mainPanel = new JPanel(new BorderLayout());
+		mainPanel.add(infoPanel, BorderLayout.CENTER);
+
+		// Die bevorzugte Breite für das JFrame festlegen
+		int preferredWidth = 600; // Hier je nach gewünschter Breite anpassen
+		patientInfoFrame.setPreferredSize(new Dimension(preferredWidth, 420));
+
+		// Alle Inhalte im JFrame "patientInfoFrame" laden
+		patientInfoFrame.add(mainPanel);
+		patientInfoFrame.pack();
+		patientInfoFrame.setLocationRelativeTo(null);
+		patientInfoFrame.setVisible(true);
+	}
+
+	// Hilfsmethode, die ein Textfeld und das entsprechende Label zu einem Panel mit GridBagLayout hinzufügt.
+	private void addFormField(JPanel panel, String label, JTextField textField) {
+		// Ein neues GridBagConstraints-Objekt erstellen.
+		GridBagConstraints gbc = new GridBagConstraints();
+		// Das Ankerfeld für das GridBagConstraints-Objekt auf WEST setzen.
+		gbc.anchor = GridBagConstraints.WEST;
+		// Die externen Abstände der Komponenten festlegen.
+		gbc.insets = new Insets(5, 10, 5, 10);
+		// Das gridx- und gridy-Feld setzen. Diese Werte geben die Zelle im Layoutraster an, in der die linke obere Ecke der Komponente platziert wird.
+		gbc.gridx = 0;
+		gbc.gridy = panel.getComponentCount();
+		// Das Label zum Panel hinzufügen.
+		panel.add(new JLabel(label), gbc);
+		// Zur nächsten Zelle im Layoutraster wechseln.
+		gbc.gridx = 1;
+		// Das fill-Feld auf HORIZONTAL setzen. Dadurch wird der Anzeigebereich der Komponente horizontal, aber nicht vertikal ausgefüllt.
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		// Das weightx-Feld auf 1.0 setzen. Dadurch wird festgelegt, wie viel zusätzlicher horizontaler Platz der Komponente zugewiesen wird.
+		gbc.weightx = 1.0;
+		// Das Textfeld zum Panel hinzufügen.
+		panel.add(textField, gbc);
 	}
 }
+
+

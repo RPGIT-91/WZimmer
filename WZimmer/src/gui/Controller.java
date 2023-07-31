@@ -1,44 +1,58 @@
-//Hier werden die Funktionalitäten hinter den Knöpfen angelegt.
-
+/* Diese Klasse ist der Controller, der die Funktionalitäten hinter den GUI-Buttons implementiert.
+ *  Jeder ActionListener reagiert auf bestimmte Benutzerinteraktionen und führt die entsprechenden Aktionen aus, 
+ *  z. B. das Hinzufügen eines Patienten, das Bearbeiten von Patientendaten, das Anzeigen von Patientendetails, 
+ *  das Ausführen einer Behandlung oder das Hinzufügen eines Patienten zum Wartezimmer.
+ */
 package gui;
+
 import java.util.List;
 import java.util.Random;
 import java.util.ArrayList;
 import javax.swing.*;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import user.*;
 
-// Declare the Controller class
 public class Controller {
-	private MyView view; // The main view instance used to interact with GUI
-	private List<Patient> patients; // The list of patients
-	private IWaitingRoomOperations waitingRoom; // The waiting room instance
-	private IAnzeigeOperations waitingAnzeige; // The display instance to show waiting room
-	private boolean isWaitingRoomRunning = false; // Boolean to check if waiting room is running or not
+	private MyView view; // Die Haupt-View-Instanz zum Interagieren mit der GUI
+	private List<Patient> patients; // Die Liste der Patienten
+	private IWaitingRoomOperations waitingRoom; // Die Wartezimmer-Instanz
+	private IAnzeigeOperations waitingAnzeige; // Die Anzeige-Instanz zur Darstellung des Wartezimmers
+	private boolean isWaitingRoomRunning = false; // Boolean, um zu überprüfen, ob das Wartezimmer läuft oder nicht
 
-	// Constructor for the Controller class
+	// Konstruktor für die Controller-Klasse
 	public Controller(MyView view) {
-		// Initialize the main view and waiting room
+		// Initialisiere die Haupt-View und das Wartezimmer
 		this.view = view;
 		waitingRoom = new WaitingRoom();
-		
-		// Initialize the patients list
+
+		// Initialisiere die Liste der Patienten
 		patients = new ArrayList<>();
-		// Create two example patients for testing
-		Patient patient1 = new Patient("John Doe", 30, "john.doe@example.com", "Musterstrasse 1", "12", "0152565581", "A000000001", "TK", "Hemorrhoids", "10:00", patients.size()+1);
+		// Erstelle Beispiel-Patienten zum Testen
+		Patient patient1 = new Patient("John Doe", 30, "john.doe@example.com", "Musterstrasse 1", "12", "0152565581",
+				"A000000001", "TK", "Hämorrhoiden", "10:00", patients.size() + 1);
 		patients.add(patient1);
-		Patient patient2 = new Patient("Jane Smith", 45, "jane.smith@example.com", "Musterstrasse 2", "12", "0152565582", "A000000002", "TK", "", "11:00", patients.size()+1);
+		Patient patient2 = new Patient("Jane Smith", 45, "jane.smith@example.com", "Musterstrasse 2", "12",
+				"0152565582", "A000000002", "TK", "", "11:00", patients.size() + 1);
 		patients.add(patient2);
-		
-		// Add the created patients to the GUI
+		Patient patient3 = new Patient("Max Mustermann", 28, "max.mustermann@example.com", "Beispielweg 3", "34", "0152565583",
+		        "A000000003", "TK", "Erkältung", "14:30", patients.size() + 1);
+		patients.add(patient3);
+
+		Patient patient4 = new Patient("Maria Schmidt", 55, "maria.schmidt@example.com", "Musterallee 7", "56", "0152565584",
+		        "A000000004", "AOK", "Rückenschmerzen", "15:00", patients.size() + 1);
+		patients.add(patient4);
+
+		Patient patient5 = new Patient("Michael Müller", 42, "michael.mueller@example.com", "Musterplatz 12", "78", "0152565585",
+		        "A000000005", "BARMER", "Kopfschmerzen", "16:00", patients.size() + 1);
+		patients.add(patient5);
+
+		// Füge die erstellten Patienten der GUI hinzu
 		for (Patient patient : patients) {
 			view.addPatient(patient);
 		}
-		
-		// Register action listeners for the buttons on the GUI
+
+		// Registriere Action-Listener für die Buttons in der GUI
 		view.addAddPatientListener(new AddPatientListener());
 		view.addEditPatientListener(new EditPatientListener());
 		view.addViewDetailsListener(new ViewDetailsListener());
@@ -46,11 +60,13 @@ public class Controller {
 		view.addToWaitListListener(new AddToWaitListListener());
 	}
 
-	// ActionListener for the "Add Patient" button
+	// ActionListener für den "Patient hinzufügen"-Button
 	private class AddPatientListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// When the "Add Patient" button is clicked, create a new patient and add it to the patient list and the view
+			// Wenn der "Patient hinzufügen"-Button geklickt wird, erstelle einen neuen
+			// Patienten
+			// und füge ihn der Patientenliste und der View hinzu
 			view.addPatientNew(patients.size() + 1, newPatient -> {
 				if (!newPatient.getName().isEmpty()) {
 					patients.add(newPatient);
@@ -60,154 +76,159 @@ public class Controller {
 		}
 	}
 
-	// ActionListener for the "Edit Patient" button
+	// ActionListener für den "Patient bearbeiten"-Button
 	private class EditPatientListener implements ActionListener {
-	    @Override
-	    public void actionPerformed(ActionEvent e) {
-	        int selectedRow = view.getSelectedRowIndex();
-	        if (selectedRow != -1) {
-	            Patient selectedPatient = patients.get(selectedRow);
-	            view.editPatientInfo(selectedPatient, editedPatient -> {
-	                // Update the selectedPatient with the changes from the editedPatient
-	                selectedPatient.setName(editedPatient.getName());
-	                selectedPatient.setAge(editedPatient.getAge());
-	                selectedPatient.setContactDetails(editedPatient.getContactDetails());
-	                selectedPatient.setAdress(editedPatient.getAdress());
-	                selectedPatient.setPlz(editedPatient.getPlz());
-	                selectedPatient.setTelephone(editedPatient.getTelephone());
-	                selectedPatient.setMedicalHistory(editedPatient.getMedicalHistory());
-	                selectedPatient.setInsuranceNo(editedPatient.getInsuranceNo());
-	                selectedPatient.setInsuranceInstitute(editedPatient.getInsuranceInstitute());
-	                selectedPatient.setAppointmentTime(editedPatient.getAppointmentTime());
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			int selectedRow = view.getSelectedRowIndex();
+			if (selectedRow != -1) {
+				Patient selectedPatient = patients.get(selectedRow);
+				view.editPatientInfo(selectedPatient, editedPatient -> {
+					// Aktualisiere den ausgewählten Patienten mit den Änderungen aus editedPatient
+					selectedPatient.setName(editedPatient.getName());
+					selectedPatient.setAge(editedPatient.getAge());
+					selectedPatient.setContactDetails(editedPatient.getContactDetails());
+					selectedPatient.setAdress(editedPatient.getAdress());
+					selectedPatient.setPlz(editedPatient.getPlz());
+					selectedPatient.setTelephone(editedPatient.getTelephone());
+					selectedPatient.setMedicalHistory(editedPatient.getMedicalHistory());
+					selectedPatient.setInsuranceNo(editedPatient.getInsuranceNo());
+					selectedPatient.setInsuranceInstitute(editedPatient.getInsuranceInstitute());
+					selectedPatient.setAppointmentTime(editedPatient.getAppointmentTime());
 
-	                // Now, the changes made to the selectedPatient are saved.
-	                // You can also trigger any further actions or updates here.
+					// Die Änderungen am ausgewählten Patienten sind nun gespeichert.
+					// Weitere Aktionen oder Updates können hier ebenfalls ausgelöst werden.
 
-	                // For example, you can update the view to reflect the changes:
-	                view.updatePatient(selectedRow, editedPatient);
-	                //list of patients in the controller, you can update it as well.
-	                patients.set(selectedRow, editedPatient);
-	            });
-	        } else {
-	            JOptionPane.showMessageDialog(view, "Please select a patient.", "Warning", JOptionPane.INFORMATION_MESSAGE);
-	        }
-	    }
+					// Zum Beispiel kann die View aktualisiert werden, um die Änderungen
+					// widerzuspiegeln:
+					view.updatePatient(selectedRow, editedPatient);
+					// Aktualisiere auch die Liste der Patienten in der Controller-Klasse.
+					patients.set(selectedRow, editedPatient);
+				});
+			} else {
+				JOptionPane.showMessageDialog(view, "Bitte wählen Sie einen Patienten aus.", "Warnung",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+		}
 	}
 
-
-
-
-
-
-
-	// ActionListener for the "View Details" button
+	// ActionListener für den "Details anzeigen"-Button
 	private class ViewDetailsListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// When the "View Details" button is clicked, display the selected patient's details or show a warning if no patient is selected
+			// Wenn der "Details anzeigen"-Button geklickt wird, zeige die Details des
+			// ausgewählten
+			// Patienten an oder zeige eine Warnung, wenn kein Patient ausgewählt ist
 			int selectedRow = view.getSelectedRowIndex();
 			if (selectedRow != -1) {
 				Patient selectedPatient = patients.get(selectedRow);
 				view.showPatientInfo(selectedPatient);
 			} else {
-				JOptionPane.showMessageDialog(view, "Please select a patient.", "Warning", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(view, "Bitte wählen Sie einen Patienten aus.", "Warnung",
+						JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
 	}
 
-	// ActionListener for the "Treatment" button
+	// ActionListener für den "Behandlung"-Button
 	private class BehandlungListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-        	//save name of patient getting treatment for message dialog
-        	String patname = waitingRoom.getPersons().peek().getName();
-        	// Remove a patient from the waiting room and display. Simulate a random outcome of the treatment
-        	
-        	Person behandelt = waitingRoom.doTreatment();
-        	if (behandelt != null) {
-        		waitingAnzeige.removePatient(behandelt);
-                
-        		
-        		//Randomize treatment outcome behaviour
-                Random random = new Random();
-                int chance = random.nextInt(100);
-                
-                if (chance < 20) {
-                	// If the random number is less than 90, simulate an unsuccessful treatment
-                	JOptionPane.showMessageDialog(view, patname + " has died.\nDestroying evidence.", "Warning", JOptionPane.INFORMATION_MESSAGE);
-                	
-                	if (behandelt instanceof Patient) {
-                        // If the object is an instance of Patient, cast it to Patient and
-                       	// Delete the patient's details from the view and the patient list
-                		Patient patient = (Patient) behandelt;
-                		view.removePatient(behandelt);                               
-                    	patients.remove(patient.getPatientId()-1);
-                	} 
-                	else {
-                	//Implementation for different instances	
-                	}
-                	
- 
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// Speichere den Namen des Patienten, der die Behandlung erhält, für die Meldung
+			if (waitingRoom.getPersons().peek() != null) {
+				String patname = waitingRoom.getPersons().peek().getName();
+				// Entferne einen Patienten aus dem Wartezimmer und simuliere ein zufälliges
+				// Ergebnis
+				Person behandelt = waitingRoom.doTreatment();
+				if (behandelt != null) {
+					waitingAnzeige.removePatient(behandelt);
+					// Zufallsbasiertes Verhalten der Behandlung simulieren
+					Random random = new Random();
+					int chance = random.nextInt(100);
+					if (chance < 20) {
+						// Wenn die Zufallszahl kleiner als 20 ist, simuliere eine erfolglose Behandlung
+						JOptionPane.showMessageDialog(view, patname + " ist gestorben.\nBeweismittel zerstören.",
+								"Information", JOptionPane.INFORMATION_MESSAGE);
+						if (behandelt instanceof Patient) {
+							// Wenn das Objekt eine Instanz von Patient ist, caste es zu Patient und
+							// entferne die Details des Patienten aus der View und der Patientenliste
+							Patient patient = (Patient) behandelt;
+							view.removePatient(behandelt);
+							patients.remove(patient.getPatientId() - 1);
+						} else {
+							// Implementierung für weitere Instanzen
+						}
 
-                	
-                } else {
-                	// If the random number is greater than or equal to 90, simulate a successful treatment
-                	JOptionPane.showMessageDialog(null, patname + " is alive.\nWe have nothing to do with organ trafficking.", "Warning", JOptionPane.INFORMATION_MESSAGE);
-                }
-        	} else {
-        		// If no patient is in the waiting room, display a warning
-        		JOptionPane.showMessageDialog(null, "No patients in the waiting room.", "Warning", JOptionPane.INFORMATION_MESSAGE);
-        	}
-        	
-        	// Update the number of currently waiting patients
-        	if (waitingAnzeige != null) {
-        		JPanel waitPanel = waitingAnzeige.getWaitPanel();
-                JLabel waitingLabel = (JLabel) waitPanel.getComponent(0);
-                waitingLabel.setText("Currently Waiting: " + waitingAnzeige.getRows());
-        	}
+					} else {
+						// Wenn die Zufallszahl größer oder gleich wie die chance ist, simuliere eine
+						// erfolgreiche Behandlung
+						JOptionPane.showMessageDialog(null,
+								patname + " ist am Leben.\nWir haben nichts mit dem Organhandel zu tun.", "Information",
+								JOptionPane.INFORMATION_MESSAGE);
+					}
+				} else {
+					// Wenn sich kein Patient im Wartezimmer befindet, zeige eine Warnung an
+					JOptionPane.showMessageDialog(null, "Keine Patienten im Wartezimmer.", "Warnung",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
 
-        }
-    };
+				// Aktualisiere die Anzahl der aktuell wartenden Patienten
+				if (waitingAnzeige != null) {
+					JPanel waitPanel = waitingAnzeige.getWaitPanel();
+					JLabel waitingLabel = (JLabel) waitPanel.getComponent(0);
+					waitingLabel.setText("Derzeit Wartende: " + waitingAnzeige.getRows());
+				}
 
-    // ActionListener for the "Add to Wait List" button
-    private class AddToWaitListListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            // When the "Add to Wait List" button is clicked, add the selected patient to the waiting room and display or show a warning if no patient is selected
-            int selectedRow = view.getSelectedRowIndex();
-            if (selectedRow != -1) {
-                Patient selectedPatient = getSelectedPatient(selectedRow);
+			} else {
+				JOptionPane.showMessageDialog(view, "Keine Patienten im Wartezimmer.", "Warnung",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+		}
+	}
 
-                // Add the selected patient to the waiting room
-                waitingRoom.addPatient(selectedPatient);
+	// ActionListener für den "Zur Warteliste hinzufügen"-Button
+	private class AddToWaitListListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// Wenn der "Zur Warteliste hinzufügen"-Button geklickt wird, füge den
+			// ausgewählten Patienten dem
+			// Wartezimmer hinzu und zeige eine Warnung, wenn kein Patient ausgewählt ist
+			int selectedRow = view.getSelectedRowIndex();
+			if (selectedRow != -1) {
+				Patient selectedPatient = getSelectedPatient(selectedRow);
 
-                // Check if the waiting room display is already running, if not, start it
-                if (!isWaitingRoomRunning) {
-                    waitingAnzeige = new Anzeige();
-                    isWaitingRoomRunning = true;
-                }
-                
-                // Update the waiting room display with the patients in the waiting room
-                waitingAnzeige.addPatient(selectedPatient);
-                
-                JPanel waitPanel = waitingAnzeige.getWaitPanel();
-                JLabel waitingLabel = (JLabel) waitPanel.getComponent(0);
-                waitingLabel.setText("Currently Waiting: " + waitingAnzeige.getRows());
-                
-            } else {
-                JOptionPane.showMessageDialog(view, "Please select a patient.", "Warning", JOptionPane.INFORMATION_MESSAGE);
-            }
-        }
-    }
+				// Füge den ausgewählten Patienten dem Wartezimmer hinzu
+				waitingRoom.addPatient(selectedPatient);
 
-    
-    // Helper method to get the selected patient
-    private Patient getSelectedPatient(int selectedRow) {
-        // Check if the provided row index is valid, and if it is, return the patient at that index
-        if (selectedRow >= 0 && selectedRow < patients.size()) {
-            return patients.get(selectedRow);
-        } else {
-            return null;
-        }
-    }
+				// Überprüfe, ob die Anzeige des Wartezimmers bereits läuft. Wenn nicht, starte
+				// sie.
+				if (!isWaitingRoomRunning) {
+					waitingAnzeige = new Anzeige();
+					isWaitingRoomRunning = true;
+				}
+
+				// Aktualisiere die Anzeige des Wartezimmers mit den Patienten im Wartezimmer
+				waitingAnzeige.addPatient(selectedPatient);
+
+				JPanel waitPanel = waitingAnzeige.getWaitPanel();
+				JLabel waitingLabel = (JLabel) waitPanel.getComponent(0);
+				waitingLabel.setText("Derzeit Wartende: " + waitingAnzeige.getRows());
+
+			} else {
+				JOptionPane.showMessageDialog(view, "Bitte wählen Sie einen Patienten aus.", "Warnung",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+		}
+	}
+
+	// Hilfsmethode zum Abrufen des ausgewählten Patienten
+	private Patient getSelectedPatient(int selectedRow) {
+		// Überprüfe, ob der bereitgestellte Zeilenindex gültig ist, und gib bei Erfolg
+		// den Patienten an dieser Position zurück
+		if (selectedRow >= 0 && selectedRow < patients.size()) {
+			return patients.get(selectedRow);
+		} else {
+			return null;
+		}
+	}
 }

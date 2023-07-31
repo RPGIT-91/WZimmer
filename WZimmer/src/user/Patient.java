@@ -1,143 +1,145 @@
-// This is the Patient class which represents a patient in the system.
-// The 'package user' line indicates that this class is part of the 'user' package.
 package user;
 
-// The Patient class extends the Person class, which means it inherits all of the variables and methods of the Person class.
-// In addition to the inherited attributes, a Patient has a medical history, appointment time, insurance number, insurance institute, and patient ID.
+// Die Patient-Klasse repräsentiert einen Patienten im System und erbt von der Person-Klasse.
+// Ein Patient hat zusätzlich zu den geerbten Attributen einen medizinischen Verlauf, eine Terminzeit, Versicherungsnummer, Versicherungsinstitut und eine Patienten-ID.
 public class Patient extends Person {
-    private String medicalHistory;
-    private String appointmentTime;
-    private String insuranceNo;
-    private String insuranceInstitute;
-    private int patientId;
+	private String medicalHistory;
+	private String appointmentTime;
+	private String insuranceNo;
+	private String insuranceInstitute;
+	private int patientId;
 
-    // Constructor for the Patient class with appointment time. When a new Patient object is created, this constructor is called.
-    // The constructor takes several parameters: the patient's name, age, contact details, adress, postal code (plz), telephone number, insurance number, insurance institute, medical history, appointment time, and patient ID.
-    public Patient(String name, int age, String contactDetails, String adress, String plz, String telephone, String insuranceNo,
-                   String insuranceInstitute, String medicalHistory, String appointmentTime, int patientId) {
-        super(name, age, contactDetails, adress, plz, telephone); // Calling the constructor of the parent class (Person)
-        this.medicalHistory = medicalHistory;
-        this.appointmentTime = appointmentTime;
-        this.insuranceNo = insuranceNo;
-        this.insuranceInstitute = insuranceInstitute;
-        this.patientId = patientId;
-    }
+	// Konstruktor für die Patient-Klasse mit Terminzeit.
+	public Patient(String name, int age, String contactDetails, String adress, String plz, String telephone,
+			String insuranceNo, String insuranceInstitute, String medicalHistory, String appointmentTime,
+			int patientId) {
+		super(name, age, contactDetails, adress, plz, telephone);
+		this.medicalHistory = medicalHistory;
+		this.appointmentTime = appointmentTime;
+		this.insuranceNo = insuranceNo;
+		this.insuranceInstitute = insuranceInstitute;
+		this.patientId = patientId;
+	}
 
-    // Constructor for the Patient class without appointment time. This one sets the appointment time to an empty string by default.
-    public Patient(String name, int age, String contactDetails, String adress, String plz, String telephone, String insuranceNo,
-                   String insuranceInstitute, String medicalHistory, int patientId) {
-        super(name, age, contactDetails, adress, plz, telephone); // Calling the constructor of the parent class (Person)
-        this.medicalHistory = medicalHistory;
-        this.appointmentTime = ""; // No appointment time specified
-        this.insuranceNo = insuranceNo;
-        this.insuranceInstitute = insuranceInstitute;
-        this.patientId = patientId;
-    }
+	// Konstruktor für die Patient-Klasse ohne Terminzeit. Wird nicht genutzt, da im
+	// addPatient, eine unbefüllte oder falsch formatierte
+	// Eingabe automatisch auf 0 gesetzt wird. Future proofing.
+	public Patient(String name, int age, String contactDetails, String adress, String plz, String telephone,
+			String insuranceNo, String insuranceInstitute, String medicalHistory, int patientId) {
+		super(name, age, contactDetails, adress, plz, telephone);
+		this.medicalHistory = medicalHistory;
+		this.appointmentTime = "";
+		this.insuranceNo = insuranceNo;
+		this.insuranceInstitute = insuranceInstitute;
+		this.patientId = patientId;
+	}
 
-    // Empty constructor for the Patient class. This creates a "default" patient with no details and a placeholder patient ID.
-    public Patient() {
-        super("", 0, "", "", "", ""); // Calling the constructor of the parent class (Person) with default values
-        this.medicalHistory = "";
-        this.appointmentTime = "";
-        this.insuranceNo = "";
-        this.insuranceInstitute = "";
-        this.patientId = 9999; // Placeholder patient ID
-    }
+	// Leerer Konstruktor für die Patient-Klasse. Erzeugt einen "Standard"-Patienten
+	// ohne Details und eine Platzhalter-Patienten-ID.
+	public Patient() {
+		super("", 0, "", "", "", "");
+		this.medicalHistory = "";
+		this.appointmentTime = "";
+		this.insuranceNo = "";
+		this.insuranceInstitute = "";
+		this.patientId = 9999;
+	}
 
-    // Getter methods for the class variables. These allow you to retrieve the values of these variables from an instance of the class.
-    public String getMedicalHistory() {
-        return medicalHistory;
-    }
+	// Getter-Methoden für die Klassenvariablen.
+	public String getMedicalHistory() {
+		return medicalHistory;
+	}
 
-    public String getAppointmentTime() {
-        return appointmentTime;
-    }
+	public String getAppointmentTime() {
+		return appointmentTime;
+	}
 
-    public int getPatientId() {
-        return patientId;
-    }
+	public int getPatientId() {
+		return patientId;
+	}
 
-    public String getInsuranceNo() {
-        return insuranceNo;
-    }
+	public String getInsuranceNo() {
+		return insuranceNo;
+	}
 
-    public String getInsuranceInstitute() {
-        return insuranceInstitute;
-    }
+	public String getInsuranceInstitute() {
+		return insuranceInstitute;
+	}
 
-    // Setter methods for the class variables
-    public void setMedicalHistory(String medicalHistory) {
-        this.medicalHistory = medicalHistory;
-    }
+	// Setter-Methoden für die Klassenvariablen.
+	public void setMedicalHistory(String medicalHistory) {
+		this.medicalHistory = medicalHistory;
+	}
 
-    public void setAppointmentTime(String appointmentTime) {
-        this.appointmentTime = appointmentTime;
-    }
+	public void setAppointmentTime(String appointmentTime) {
+		this.appointmentTime = appointmentTime;
+	}
 
-    public void setPatientId(int patientId) {
-        this.patientId = patientId;
-    }
+	public void setPatientId(int patientId) {
+		this.patientId = patientId;
+	}
 
-    public void setInsuranceNo(String insuranceNo) {
-        this.insuranceNo = insuranceNo;
-    }
+	public void setInsuranceNo(String insuranceNo) {
+		this.insuranceNo = insuranceNo;
+	}
 
-    public void setInsuranceInstitute(String insuranceInstitute) {
-        this.insuranceInstitute = insuranceInstitute;
-    }
-    
-    
-    
-    
- //Abstrakte Klasse
- // Implementing the inherited abstract methods from the Person class
-    public String getName() {
-        return super.name;
-    }
+	public void setInsuranceInstitute(String insuranceInstitute) {
+		this.insuranceInstitute = insuranceInstitute;
+	}
 
-    public int getAge() {
-        return super.age;
-    }
+	// Implementierung der geerbten abstrakten Methoden aus der Person-Klasse
+	@Override
+	public String getName() {
+		return super.name;
+	}
 
-    public String getContactDetails() {
-        return super.contactDetails;
-    }
+	@Override
+	public int getAge() {
+		return super.age;
+	}
 
-    public String getAdress() {
-        return super.adress;
-    }
+	@Override
+	public String getContactDetails() {
+		return super.contactDetails;
+	}
 
-    public String getPlz() {
-        return super.plz;
-    }
+	@Override
+	public String getAdress() {
+		return super.adress;
+	}
 
-    public String getTelephone() {
-        return super.telephone;
-    }
+	@Override
+	public String getPlz() {
+		return super.plz;
+	}
 
-    
-    //setter für die abstrakte Person Klasse
-    public void setName(String name) {
-        super.name = name;
-    }
+	@Override
+	public String getTelephone() {
+		return super.telephone;
+	}
 
-    public void setAge(int age) {
-        super.age = age;
-    }
+	// Setter-Methoden für die geerbten abstrakten Methoden aus der Person-Klasse
+	public void setName(String name) {
+		super.name = name;
+	}
 
-    public void setContactDetails(String contactDetails) {
-        super.contactDetails = contactDetails;
-    }
+	public void setAge(int age) {
+		super.age = age;
+	}
 
-    public void setAdress(String adress) {
-        super.adress = adress;
-    }
+	public void setContactDetails(String contactDetails) {
+		super.contactDetails = contactDetails;
+	}
 
-    public void setPlz(String plz) {
-        super.plz = plz;
-    }
+	public void setAdress(String adress) {
+		super.adress = adress;
+	}
 
-    public void setTelephone(String telephone) {
-        super.telephone = telephone;
-    }
+	public void setPlz(String plz) {
+		super.plz = plz;
+	}
+
+	public void setTelephone(String telephone) {
+		super.telephone = telephone;
+	}
 }
