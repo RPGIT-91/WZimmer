@@ -1,6 +1,6 @@
 //CommonOperations Interface
 
-package interfaces;
+package gui;
 
 import user.*;
 

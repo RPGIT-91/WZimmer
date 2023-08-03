@@ -1,5 +1,5 @@
 // Anzeige Interface
-package interfaces;
+package gui;
 
 
 public interface IAnzeigeOperations extends ICommonOperations {

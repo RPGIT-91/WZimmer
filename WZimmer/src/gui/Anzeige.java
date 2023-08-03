@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.time.LocalTime;
-import interfaces.IAnzeigeOperations;
+
 import user.*;
 
 // Die Klasse "Anzeige" zeigt das Wartezimmer an und implementiert das Interface "IAnzeigeOperations".

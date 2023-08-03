@@ -1,6 +1,6 @@
 //WaitingRoom Interface
 
-package interfaces;
+package gui;
 
 import java.util.Queue;
 
