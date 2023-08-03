@@ -29,21 +29,21 @@ public class Controller {
 		// Initialisiere die Liste der Patienten
 		patients = new ArrayList<>();
 		// Erstelle Beispiel-Patienten zum Testen
-		Patient patient1 = new Patient("John Doe", 30, "john.doe@example.com", "Musterstrasse 1", "12", "0152565581",
+		Patient patient1 = new Patient("Ryu Pape", 30, "ryu.pape@example.com", "Musterstrasse 1", "12", "0152565581",
 				"A000000001", "TK", "Hämorrhoiden", "10:00", patients.size() + 1);
 		patients.add(patient1);
-		Patient patient2 = new Patient("Jane Smith", 45, "jane.smith@example.com", "Musterstrasse 2", "12",
+		Patient patient2 = new Patient("Niclas Zemeris", 45, "niclas.zemeris@example.com", "Musterstrasse 2", "12",
 				"0152565582", "A000000002", "TK", "", "11:00", patients.size() + 1);
 		patients.add(patient2);
-		Patient patient3 = new Patient("Max Mustermann", 28, "max.mustermann@example.com", "Beispielweg 3", "34", "0152565583",
+		Patient patient3 = new Patient("Alexander Rauch", 28, "alexander.rauch@example.com", "Beispielweg 3", "34", "0152565583",
 		        "A000000003", "TK", "Erkältung", "14:30", patients.size() + 1);
 		patients.add(patient3);
 
-		Patient patient4 = new Patient("Maria Schmidt", 55, "maria.schmidt@example.com", "Musterallee 7", "56", "0152565584",
+		Patient patient4 = new Patient("Julio Huerta", 55, "julio.huerta@example.com", "Musterallee 7", "56", "0152565584",
 		        "A000000004", "AOK", "Rückenschmerzen", "15:00", patients.size() + 1);
 		patients.add(patient4);
 
-		Patient patient5 = new Patient("Michael Müller", 42, "michael.mueller@example.com", "Musterplatz 12", "78", "0152565585",
+		Patient patient5 = new Patient("Barack Obama", 42, "barack.obama@example.com", "Musterplatz 12", "78", "0152565585",
 		        "A000000005", "BARMER", "Kopfschmerzen", "16:00", patients.size() + 1);
 		patients.add(patient5);
 
@@ -99,8 +99,7 @@ public class Controller {
 					// Die Änderungen am ausgewählten Patienten sind nun gespeichert.
 					// Weitere Aktionen oder Updates können hier ebenfalls ausgelöst werden.
 
-					// Zum Beispiel kann die View aktualisiert werden, um die Änderungen
-					// widerzuspiegeln:
+					// Zum Beispiel kann die View aktualisiert werden, um die Änderungen widerzuspiegeln:
 					view.updatePatient(selectedRow, editedPatient);
 					// Aktualisiere auch die Liste der Patienten in der Controller-Klasse.
 					patients.set(selectedRow, editedPatient);
@@ -116,8 +115,7 @@ public class Controller {
 	private class ViewDetailsListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// Wenn der "Details anzeigen"-Button geklickt wird, zeige die Details des
-			// ausgewählten
+			// Wenn der "Details anzeigen"-Button geklickt wird, zeige die Details des ausgewählten
 			// Patienten an oder zeige eine Warnung, wenn kein Patient ausgewählt ist
 			int selectedRow = view.getSelectedRowIndex();
 			if (selectedRow != -1) {
@@ -198,8 +196,7 @@ public class Controller {
 				// Füge den ausgewählten Patienten dem Wartezimmer hinzu
 				waitingRoom.addPatient(selectedPatient);
 
-				// Überprüfe, ob die Anzeige des Wartezimmers bereits läuft. Wenn nicht, starte
-				// sie.
+				// Überprüfe, ob die Anzeige des Wartezimmers bereits läuft. Wenn nicht, starte sie.
 				if (!isWaitingRoomRunning) {
 					waitingAnzeige = new Anzeige();
 					isWaitingRoomRunning = true;
@@ -218,8 +215,7 @@ public class Controller {
 
 	// Hilfsmethode zum Abrufen des ausgewählten Patienten
 	private Patient getSelectedPatient(int selectedRow) {
-		// Überprüfe, ob der bereitgestellte Zeilenindex gültig ist, und gib bei Erfolg
-		// den Patienten an dieser Position zurück
+		// Überprüfe, ob der bereitgestellte Zeilenindex gültig ist, und gib bei Erfolg den Patienten an dieser Position zurück
 		if (selectedRow >= 0 && selectedRow < patients.size()) {
 			return patients.get(selectedRow);
 		} else {
