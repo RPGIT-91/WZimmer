@@ -10,11 +10,10 @@ package gui;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-
-import user.*;
-
 import java.awt.*;
 import java.time.LocalTime;
+import interfaces.IAnzeigeOperations;
+import user.*;
 
 // Die Klasse "Anzeige" zeigt das Wartezimmer an und implementiert das Interface "IAnzeigeOperations".
 class Anzeige extends JFrame implements IAnzeigeOperations {

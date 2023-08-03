@@ -12,6 +12,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import user.*;
+import interfaces.*;
 
 public class Controller {
 	private MyView view; // Die Haupt-View-Instanz zum Interagieren mit der GUI

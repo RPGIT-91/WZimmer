@@ -11,10 +11,11 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.util.function.Consumer;
-import user.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.time.LocalTime;
+import interfaces.ICommonOperations;
+import user.*;
 
 public class MyView extends JFrame implements ICommonOperations {
 	private static final long serialVersionUID = 107214543984441388L;

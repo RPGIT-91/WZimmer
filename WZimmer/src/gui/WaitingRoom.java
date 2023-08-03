@@ -5,6 +5,7 @@ package gui;
 import java.util.LinkedList;
 import java.util.Queue;
 import javax.swing.JOptionPane;
+import interfaces.IWaitingRoomOperations;
 import user.*;
 
 class WaitingRoom implements IWaitingRoomOperations {

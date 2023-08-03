@@ -1,10 +1,10 @@
 //CommonOperations Interface
 
-package gui;
+package interfaces;
 
 import user.*;
 
-interface ICommonOperations {
+public interface ICommonOperations {
 	void addPatient(Person patient);
 
 	void removePatient(Person patient);
