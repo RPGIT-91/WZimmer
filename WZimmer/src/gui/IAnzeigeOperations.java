@@ -2,7 +2,7 @@
 package gui;
 
 
-public interface IAnzeigeOperations extends ICommonOperations {
+interface IAnzeigeOperations extends ICommonOperations {
 	void refreshDisplay();
 
 	int getRows();
